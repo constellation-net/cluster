@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.0.1"
+      version: ">=1.0.2"
   interval: 10m0s
   releaseName: valhesia
   targetNamespace: starsys-games
@@ -19,7 +19,7 @@ spec:
     priorityClassName: starsys-games
     nodeAffinityLabels:
       - key: kubernetes.io/hostname
-        operator: Exists
+        operator: In
         values:
           - mc-valhesia
     serverOptions:
@@ -47,3 +47,4 @@ spec:
         modpackUrl: https://www.curseforge.com/minecraft/modpacks/valhelsia-6/download/5529449
     secretEnvs:
       - valhesia-minecraft-curseforge
+    pvcName: valhesia-minecraft-data
