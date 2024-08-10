@@ -18,11 +18,11 @@ spec:
   nodeAffinity:
     required:
       nodeSelectorTerms:
-        matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-              - mc-valhesia
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - mc-valhesia
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
