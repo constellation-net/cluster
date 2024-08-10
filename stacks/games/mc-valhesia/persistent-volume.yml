@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""
   local:
-    path: /home/jack/mc-valhesia
+    path: /home/jack/games/mc-valhesia
   claimRef:
     name: valhesia-minecraft-data
     namespace: starsys-games
