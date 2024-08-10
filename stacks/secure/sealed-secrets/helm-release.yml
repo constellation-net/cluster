@@ -23,7 +23,7 @@ spec:
     priorityClassName: starsys-secure
     metrics:
       serviceMonitor:
-        enabled: true # Deploy for Prometheus Operator
+        enabled: false # Deploy for Prometheus Operator
       dashboards: # Creates a Grafana Dashboard ConfigMap in the monitor namespace
         create: true
         namespace: starsys-monitor
