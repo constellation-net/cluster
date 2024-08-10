@@ -1,0 +1,8 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: starsys-games
+description: Gives priority to game servers over the more basic Pods
+value: 10000 # x10^5 lower than system
+globalDefault: false # Speaks for itself
+preemptionPolicy: Never
