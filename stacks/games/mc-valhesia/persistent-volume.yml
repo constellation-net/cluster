@@ -28,6 +28,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: valhesia-minecraft-data
+  namespace: starsys-games
 spec:
   accessModes:
     - ReadWriteOnce
