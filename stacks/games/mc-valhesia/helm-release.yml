@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.0.14"
+      version: ">=1.0.15"
   interval: 10m0s
   releaseName: valhesia
   targetNamespace: starsys-games
@@ -34,7 +34,8 @@ spec:
         players: |
           JackTEK
           Felpito
-      operators: JackTEK
+      operators: |
+        JackTEK
       branding:
         serverName: Valhesia Space Race
         motd: Race to space!
