@@ -30,7 +30,7 @@ spec:
       memory:
         max: 16G
       whitelist:
-        enabled: true
+        enabled: false
         players:
           - JackTEK
           - Felpito
