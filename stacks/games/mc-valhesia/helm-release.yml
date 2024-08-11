@@ -41,7 +41,7 @@ spec:
         radius: 8000
       server:
         version: 1.20.1
-        type: AUTO_CURSEFORGE
+        jreType: AUTO_CURSEFORGE
         allowFlight: true
       gameplay:
         difficulty: hard
