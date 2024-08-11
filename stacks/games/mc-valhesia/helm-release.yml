@@ -46,7 +46,7 @@ spec:
       gameplay:
         difficulty: hard
       curseforge:
-        modpackUrl: https://www.curseforge.com/minecraft/modpacks/valhelsia-6/download/5529449
+        modpackUrl: https://www.curseforge.com/minecraft/modpacks/valhelsia-6/download/5529180
     secretEnvs:
       - valhesia-minecraft-curseforge
     pvcName: valhesia-minecraft-data
