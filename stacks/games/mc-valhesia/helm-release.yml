@@ -31,7 +31,9 @@ spec:
         max: 16G
       whitelist:
         enabled: true
-        players: JackTEK
+        players: |
+          JackTEK
+          Felpito
       operators: JackTEK
       branding:
         serverName: Valhesia Space Race
