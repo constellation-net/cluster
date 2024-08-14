@@ -1,0 +1,8 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: starsys-network
+description: Networking is critical to the cluster's operation, with only security taking precedence
+value: 100000000 # x10 lower than system
+globalDefault: false # Speaks for itself
+preemptionPolicy: PreemptLowerPriority # Kill lower priority Pods if needed
