@@ -1,0 +1,57 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valhesia-minecraft
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: minecraft
+      sourceRef:
+        kind: HelmRepository
+        name: constellation
+      version: ">=2.0.3"
+  interval: 10m0s
+  releaseName: valhesia
+  targetNamespace: starsys-games
+  values:
+    common:
+      namespace: starsys-games
+    pods:
+      priorityClassName: starsys-games
+      annotations:
+        mc-router.itzg.me/externalServerName: mc-valhesia.vm.starsystem.dev
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - mc-valhesia
+    minecraft:
+      memory:
+        max: 16G
+      whitelist:
+        enabled: false
+      operators:
+        - JackTEK
+      branding:
+        serverName: Valhesia Space Race
+        motd: Race to space!
+        icon:
+      overworld:
+        radius: 8000
+      server:
+        version: 1.20.1
+        jreType: AUTO_CURSEFORGE
+        allowFlight: true
+      gameplay:
+        difficulty: hard
+      curseforge:
+        modpackUrl: https://www.curseforge.com/minecraft/modpacks/valhelsia-6/download/5529180
+      cluster:
+        dataPvc: valhesia-minecraft-data
+        secretEnvs:
+          - valhesia-minecraft-curseforge
