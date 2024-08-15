@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=2.0.3"
+      version: ">=2.0.5"
   interval: 10m0s
   releaseName: valhesia
   targetNamespace: starsys-games
@@ -19,8 +19,6 @@ spec:
       namespace: starsys-games
     pods:
       priorityClassName: starsys-games
-      annotations:
-        mc-router.itzg.me/externalServerName: mc-valhesia.vm.starsystem.dev
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -31,6 +29,9 @@ spec:
                     values:
                       - mc-valhesia
     minecraft:
+      service:
+        annotations:
+          mc-router.itzg.me/externalServerName: mc-valhesia.vm.starsystem.dev
       memory:
         max: 16G
       whitelist:
