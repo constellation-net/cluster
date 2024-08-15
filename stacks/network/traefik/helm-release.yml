@@ -18,6 +18,7 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
+    force: true # Replaces resources instead of merging them, avoids some confusing bugs
   values:
     common:
       namespace: starsys-network
