@@ -45,20 +45,16 @@ spec:
           port: 443
           protocol: TCP
         - name: dns-udp
-          servicePort: 53
-          containerPort: 53
+          port: 53
           protocol: UDP
         - name: dns-tcp
-          servicePort: 53
-          containerPort: 53
+          port: 53
           protocol: TCP
         - name: minecraft
-          servicePort: 25565
-          containerPort: 25565
+          port: 25565
           protocol: TCP
         - name: wireguard
-          servicePort: 51820
-          containerPort: 51820
+          port: 51820
           protocol: UDP
       cliArgs:
         - --log.level=DEBUG
