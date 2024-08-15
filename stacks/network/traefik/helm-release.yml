@@ -1,0 +1,96 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-controller
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: constellation
+      version: ">=1.2.0"
+  interval: 10m0s
+  releaseName: ingress-controller
+  targetNamespace: starsys-network
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    force: true # Replaces resources instead of merging them, avoids some confusing bugs
+  values:
+    common:
+      namespace: starsys-network
+    pods:
+      priorityClassName: starsys-network
+      # Only run Traefik on a Control Plane node. Why? Because kube-vip's virtual IP can only route to control plane nodes and I cba with load balancing a single service
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/master
+                  operator: Exists
+              - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+    traefik:
+      acmeSecret: ingress-controller-acme
+      cors:
+        allowedOrigins:
+          - https://home.starsystem.dev
+      service:
+        type: LoadBalancer
+        annotations:
+          kube-vip.io/loadbalancerIPs: 192.168.1.98
+      entrypoints:
+        - name: web
+          port: 80
+          protocol: TCP
+        - name: websecure
+          port: 443
+          protocol: TCP
+#        - name: dns-udp
+#          port: 53
+#          protocol: UDP
+#        - name: dns-tcp
+#          port: 53
+#          protocol: TCP
+        - name: minecraft
+          port: 25565
+          protocol: TCP
+        - name: wireguard
+          port: 51820
+          protocol: UDP
+      cliArgs:
+        - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
+        - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
+        - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare # Currently, only Cloudflare is supported
+        - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
+        - --log.level=DEBUG
+        - --api.dashboard=true # Enables the Traefik dashboard
+        - --api.insecure=false # Enforces security on the dashboard and requires it to be proxied
+        - --metrics.addinternals=true # Allows more metrics to be seen by Prometheus
+        - --ping # Enables the ping endpoint for healthchecking Traefik
+        - --providers.kubernetescrd # Automatically fetches all the IngressRoute resources in the cluster and proxies them
+        - --global.sendanonymoususage=false
+        - --entrypoints.web.address=:80
+        - --entrypoints.web.forwardedheaders.insecure=false
+        - --entrypoints.web.forwardedheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.web.proxyprotocol.insecure=false
+        - --entrypoints.web.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.web.http.redirections.entrypoint.to=websecure # Redirects HTTP requests to HTTPS
+        - --entrypoints.websecure.address=:443
+        - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+        - --entrypoints.websecure.http.tls.domains[0].main=starsystem.dev
+        - --entrypoints.websecure.http.tls.domains[0].sans=*.starsystem.dev
+        - --entrypoints.websecure.forwardedheaders.insecure=false
+        - --entrypoints.websecure.forwardedheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.websecure.proxyprotocol.insecure=false
+        - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.websecure.http.middlewares=cors # Automatically responds to CORS requests for proxied services
+#        - --entrypoints.dns-tcp.address=:53/tcp
+#        - --entrypoints.dns-udp.address=:53/udp
+        - --entrypoints.minecraft.address=:25565
+        - --entrypoints.wireguard.address=:51820/udp
