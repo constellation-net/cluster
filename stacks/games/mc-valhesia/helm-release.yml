@@ -10,23 +10,27 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.0.17"
+      version: ">=2.0.1"
   interval: 10m0s
   releaseName: valhesia
   targetNamespace: starsys-games
   values:
-    namespace: starsys-games
-    priorityClassName: starsys-games
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - mc-valhesia
-    serverOptions:
+    common:
+      namespace: starsys-games
+    pods:
+      priorityClassName: starsys-games
+      annotations:
+        mc-router.itzg.me/externalServerName: mc-valhesia.vm.starsystem.dev
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - mc-valhesia
+    minecraft:
       memory:
         max: 16G
       whitelist:
@@ -50,6 +54,7 @@ spec:
         difficulty: hard
       curseforge:
         modpackUrl: https://www.curseforge.com/minecraft/modpacks/valhelsia-6/download/5529180
-    secretEnvs:
-      - valhesia-minecraft-curseforge
-    pvcName: valhesia-minecraft-data
+      cluster:
+        dataPvc: valhesia-minecraft-data
+        secretEnvs:
+          - valhesia-minecraft-curseforge
