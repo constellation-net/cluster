@@ -4,7 +4,7 @@ metadata:
   name: ingress-controller-traefik
   namespace: starsys-network
 spec:
-  entrypoints:
+  entryPoints:
     - web
     - websecure
   routes:
