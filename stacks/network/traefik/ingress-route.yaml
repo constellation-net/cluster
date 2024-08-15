@@ -8,12 +8,12 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`ingress.cluster.starsys.dev`) && PathPrefix(`/ping`)
+    - match: Host(`ingress.cluster.starsystem.dev`) && PathPrefix(`/ping`)
       kind: Rule
       services:
         - name: ping@internal
           kind: TraefikService
-    - match: Host(`ingress.cluster.starsys.dev`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    - match: Host(`ingress.cluster.starsystem.dev`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
       services:
         - name: api@internal
