@@ -51,12 +51,12 @@ spec:
         - name: websecure
           port: 443
           protocol: TCP
-        - name: dns-udp
-          port: 53
-          protocol: UDP
-        - name: dns-tcp
-          port: 53
-          protocol: TCP
+#        - name: dns-udp
+#          port: 53
+#          protocol: UDP
+#        - name: dns-tcp
+#          port: 53
+#          protocol: TCP
         - name: minecraft
           port: 25565
           protocol: TCP
@@ -90,7 +90,7 @@ spec:
         - --entrypoints.websecure.proxyprotocol.insecure=false
         - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
         - --entrypoints.websecure.http.middlewares=cors # Automatically responds to CORS requests for proxied services
-        - --entrypoints.dns-tcp.address=:53/tcp
-        - --entrypoints.dns-udp.address=:53/udp
+#        - --entrypoints.dns-tcp.address=:53/tcp
+#        - --entrypoints.dns-udp.address=:53/udp
         - --entrypoints.minecraft.address=:25565
         - --entrypoints.wireguard.address=:51820/udp
