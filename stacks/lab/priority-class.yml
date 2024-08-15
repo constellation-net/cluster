@@ -1,0 +1,8 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: starsys-lab
+description: Lab services do not take priority over other Pods but get their own PriorityClass for the sake of future-proofing
+value: 0
+globalDefault: false # Speaks for itself
+preemptionPolicy: Never # Kill lower priority Pods if needed
