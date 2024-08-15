@@ -35,9 +35,6 @@ spec:
         max: 16G
       whitelist:
         enabled: false
-        players:
-          - JackTEK
-          - Felpito
       operators:
         - JackTEK
       branding:
