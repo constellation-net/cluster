@@ -53,7 +53,7 @@ spec:
           servicePort: 51820
           containerPort: 51820
           protocol: UDP
-      cliArgs:
+      cliArgs+:
         - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
         - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare # Currently, only Cloudflare is supported
         - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
