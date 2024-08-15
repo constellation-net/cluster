@@ -36,7 +36,13 @@ spec:
                   operator: Exists
     traefik:
       acmeSecret: ingress-controller-acme
-      entrypoints+:
+      entrypoints:
+        - name: web
+          port: 80
+          protocol: TCP
+        - name: websecure
+          port: 443
+          protocol: TCP
         - name: dns-udp
           servicePort: 53
           containerPort: 53
@@ -53,7 +59,28 @@ spec:
           servicePort: 51820
           containerPort: 51820
           protocol: UDP
-      cliArgs+:
+      cliArgs:
+        - --log.level=DEBUG
+        - --api.dashboard=true # Enables the Traefik dashboard
+        - --api.insecure=false # Enforces security on the dashboard and requires it to be proxied
+        - --metrics.addinternals=true # Allows more metrics to be seen by Prometheus
+        - --ping # Enables the ping endpoint for healthchecking Traefik
+        - --providers.kubernetescrd # Automatically fetches all the IngressRoute resources in the cluster and proxies them
+        - --global.sendanonymoususage=false
+        - --entrypoints.web.address=:80
+        - --entrypoints.web.forwardHeaders.insecure=false
+        - --entrypoints.web.forwardHeaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.web.proxyprotocol.insecure=false
+        - --entrypoints.web.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.web.http.redirections.entrypoint.to=websecure # Redirects HTTP requests to HTTPS
+        - --entrypoints.websecure.address=:443
+        - --entrypoints.websecure.http.tls
+        - --entrypoints.websecure.forwardHeaders.insecure=false
+        - --entrypoints.websecure.forwardHeaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.websecure.proxyprotocol.insecure=false
+        - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7\
+        - --entrypoints.websecure.http.middlewares=cors@kubernetescrd # Automatically responds to CORS requests for proxied services
+        - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
         - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
         - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare # Currently, only Cloudflare is supported
         - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
