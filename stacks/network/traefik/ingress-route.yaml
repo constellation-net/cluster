@@ -4,6 +4,9 @@ metadata:
   name: ingress-controller-traefik
   namespace: starsys-network
 spec:
+  entrypoints:
+    - web
+    - websecure
   routes:
     - match: Host(`ingress.cluster.starsys.dev`) && PathPrefix(`/ping`)
       kind: Rule
@@ -17,6 +20,5 @@ spec:
           kind: TraefikService
       middlewares:
         - name: authelia@kubernetescrd
-
-tls:
-  certResolver: letsencrypt
+  tls:
+    certResolver: letsencrypt
