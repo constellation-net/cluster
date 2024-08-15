@@ -66,16 +66,16 @@ spec:
         - --global.sendanonymoususage=false
         - --entrypoints.web.address=:80
         - --entrypoints.web.forwardheaders.insecure=false
-        - --entrypoints.web.forwardheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.web.forwardheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         - --entrypoints.web.proxyprotocol.insecure=false
-        - --entrypoints.web.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.web.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         - --entrypoints.web.http.redirections.entrypoint.to=websecure # Redirects HTTP requests to HTTPS
         - --entrypoints.websecure.address=:443
         - --entrypoints.websecure.http.tls
         - --entrypoints.websecure.forwardheaders.insecure=false
-        - --entrypoints.websecure.forwardheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
+        - --entrypoints.websecure.forwardheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         - --entrypoints.websecure.proxyprotocol.insecure=false
-        - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7\
+        - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
         - --entrypoints.websecure.http.middlewares=cors@kubernetescrd # Automatically responds to CORS requests for proxied services
         - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
         - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
