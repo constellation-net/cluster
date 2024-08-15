@@ -14,7 +14,7 @@ spec:
   interval: 10m0s
   releaseName: servicelb
   targetNamespace: starsys-network
-  update:
+  upgrade:
     force: true
   values:
     common:
