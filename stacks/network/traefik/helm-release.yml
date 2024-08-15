@@ -15,7 +15,7 @@ spec:
   releaseName: ingress-controller
   targetNamespace: starsys-network
   dependsOn:
-    - servicelb-cloud-controller
+    - name: servicelb-cloud-controller
   install:
     crds: Create
   upgrade:

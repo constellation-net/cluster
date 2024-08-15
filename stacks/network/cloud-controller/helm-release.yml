@@ -15,7 +15,7 @@ spec:
   releaseName: servicelb
   targetNamespace: starsys-network
   dependsOn:
-    - servicelb-kube-vip
+    - name: servicelb-kube-vip
   upgrade:
     force: true
   values:
