@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.0.1"
+      version: ">=1.0.7"
   interval: 10m0s
   releaseName: ingress-controller
   targetNamespace: starsys-network
@@ -57,6 +57,10 @@ spec:
           port: 51820
           protocol: UDP
       cliArgs:
+        - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
+        - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
+        - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare # Currently, only Cloudflare is supported
+        - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
         - --log.level=DEBUG
         - --api.dashboard=true # Enables the Traefik dashboard
         - --api.insecure=false # Enforces security on the dashboard and requires it to be proxied
@@ -77,7 +81,7 @@ spec:
         - --entrypoints.websecure.proxyprotocol.insecure=false
         - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
         - --entrypoints.websecure.http.middlewares=cors@kubernetescrd # Automatically responds to CORS requests for proxied services
-        - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
-        - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
-        - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare # Currently, only Cloudflare is supported
-        - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
+        - --entrypoints.dns-tcp.address=:53/tcp
+        - --entrypoints.dns-udp.address=:53/udp
+        - --entrypoints.minecraft.address=:25565
+        - --entrypoints.wireguard.address=:51820/udp

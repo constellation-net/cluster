@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ingress-controller-traefik
+  name: traefik-dashboard
   namespace: starsys-network
 spec:
   entryPoints:
@@ -18,7 +18,7 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
-      middlewares:
-        - name: authelia@kubernetescrd
+#      middlewares:
+#        - name: authelia@kubernetescrd
   tls:
     certResolver: letsencrypt
