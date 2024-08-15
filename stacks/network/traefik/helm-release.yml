@@ -1,0 +1,59 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-controller
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: constellation
+      version: ">=1.0.1"
+  interval: 10m0s
+  releaseName: ingress-controller
+  targetNamespace: starsys-network
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    common:
+      namespace: starsys-network
+    pods:
+      priorityClassName: starsys-network
+      # Only run Traefik on a Control Plane node. Why? Because kube-vip's virtual IP can only route to control plane nodes and I cba with load balancing a single service
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: node-role.kubernetes.io/master
+                  operator: Exists
+              - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+    traefik:
+      acmeSecret: ingress-controller-acme
+      entrypoints+:
+        - name: dns-udp
+          servicePort: 53
+          containerPort: 53
+          protocol: UDP
+        - name: dns-tcp
+          servicePort: 53
+          containerPort: 53
+          protocol: TCP
+        - name: minecraft
+          servicePort: 25565
+          containerPort: 25565
+          protocol: TCP
+        - name: wireguard
+          servicePort: 51820
+          containerPort: 51820
+          protocol: UDP
+      cliArgs:
+        - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
+        - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare # Currently, only Cloudflare is supported
+        - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
