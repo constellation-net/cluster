@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.2.0"
+      version: ">=1.2.1"
   interval: 10m0s
   releaseName: ingress-controller
   targetNamespace: starsys-network
@@ -42,8 +42,7 @@ spec:
           - https://home.starsystem.dev
       service:
         type: LoadBalancer
-        annotations:
-          kube-vip.io/loadbalancerIPs: 192.168.1.98
+        loadBalancerIP: 192.168.1.98
       entrypoints:
         - name: web
           port: 80
