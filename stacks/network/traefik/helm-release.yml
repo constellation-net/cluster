@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.0.7"
+      version: ">=1.0.8"
   interval: 10m0s
   releaseName: ingress-controller
   targetNamespace: starsys-network
@@ -37,6 +37,9 @@ spec:
                   operator: Exists
     traefik:
       acmeSecret: ingress-controller-acme
+      cors:
+        allowedOrigins:
+          - https://home.starsystem.dev
       entrypoints:
         - name: web
           port: 80
@@ -75,12 +78,14 @@ spec:
         - --entrypoints.web.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
         - --entrypoints.web.http.redirections.entrypoint.to=websecure # Redirects HTTP requests to HTTPS
         - --entrypoints.websecure.address=:443
-        - --entrypoints.websecure.http.tls
+        - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+        - --entrypoints.websecure.http.tls.domains=starsystem.dev
+        - --entrypoints.websecure.http.tls.sans=*.starsystem.dev
         - --entrypoints.websecure.forwardedheaders.insecure=false
         - --entrypoints.websecure.forwardedheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
         - --entrypoints.websecure.proxyprotocol.insecure=false
         - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
-        - --entrypoints.websecure.http.middlewares=cors@kubernetescrd # Automatically responds to CORS requests for proxied services
+        - --entrypoints.websecure.http.middlewares=cors # Automatically responds to CORS requests for proxied services
         - --entrypoints.dns-tcp.address=:53/tcp
         - --entrypoints.dns-udp.address=:53/udp
         - --entrypoints.minecraft.address=:25565
