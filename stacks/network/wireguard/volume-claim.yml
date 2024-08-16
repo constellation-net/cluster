@@ -3,10 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: wireguard-peers
   namespace: starsys-network
-  annotations:
-    nfs.cluster.starsystem.dev/path: "wireguard"
 spec:
-  storageClassName: nfs
+  storageClassName: local
+  volumeName: wireguard
   accessModes:
     - ReadWriteOnce
   resources:
