@@ -14,6 +14,8 @@ spec:
   interval: 10m0s
   releaseName: storage
   targetNamespace: starsys-storage
+  upgrade:
+    force: true
   values:
     common:
       namespace: starsys-storage
