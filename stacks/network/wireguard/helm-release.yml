@@ -22,6 +22,7 @@ spec:
     pods:
       priorityClassName: starsys-network
     wireguard:
+      allowedIps: 0.0.0.0/0,::/0,192.168.1.2/32
       publicAddress: connect.starsystem.dev
 #      defaultDns: pihole.starsys-network # Pihole Pod 
       # SSO will be handled by Authelia
