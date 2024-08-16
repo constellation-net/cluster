@@ -1,0 +1,27 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vpn-wg-easy
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: wg-easy
+      sourceRef:
+        kind: HelmRepository
+        name: sealed-secrets
+      version: ">=1.0.2"
+  interval: 10m0s
+  releaseName: vpn
+  targetNamespace: starsys-network
+  values:
+    common:
+      namespace: starsys-network
+    pods:
+      priorityClassName: starsys-network
+    pvcName: vpn-peers
+    wireguard:
+      publicAddress: connect.starsystem.dev
+#      defaultDns: pihole.starsys-network # Pihole Pod 
+      # SSO will be handled by Authelia
+      passwordSecret: {}
