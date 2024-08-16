@@ -1,0 +1,16 @@
+# This class is for Pods that require persistent storage but can get away with using an NFS filesystem instead of a local one.
+# This allows the Pod to be scheduled onto a node different from the one containing the NFS volume, helping to avoid overloading the storage node
+# Under the hood, this class will use a single local volume on the storage node for storing data on-disk
+# Whenever a claim is made for this class, a subdirectory is automatically provisioned and the NFS server details populated into a PersistentVolume for the Pod to use
+# An app simply needs to have a PVC with this as its storage class and the rest will be handled automatically
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs
+provisioner: nfs
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+allowVolumeExpansion: false
+parameters: 
+  archiveOnDelete: true
+  pathPattern: ${.PVC.annotations.nfs.cluster.starsystem.dev/path}

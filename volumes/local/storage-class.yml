@@ -1,0 +1,9 @@
+# This class is for volumes that are mounted directly to a node's filesystem and do not use a dynamic provisioner
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+allowVolumeExpansion: true
