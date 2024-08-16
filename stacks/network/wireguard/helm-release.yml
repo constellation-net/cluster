@@ -14,6 +14,8 @@ spec:
   interval: 10m0s
   releaseName: vpn
   targetNamespace: starsys-network
+  upgrade:
+    force: true
   values:
     common:
       namespace: starsys-network
