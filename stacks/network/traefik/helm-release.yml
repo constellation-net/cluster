@@ -81,7 +81,7 @@ spec:
         - --entrypoints.web.forwardedheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
         - --entrypoints.web.proxyprotocol.insecure=false
         - --entrypoints.web.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
-        - --entrypoints.web.http.redirections.entrypoint.to=websecure # Redirects HTTP requests to HTTPS
+#        - --entrypoints.web.http.redirections.entrypoint.to=websecure # Redirects HTTP requests to HTTPS
         - --entrypoints.websecure.address=:443
         - --entrypoints.websecure.http.tls.certresolver=letsencrypt
         - --entrypoints.websecure.http.tls.domains[0].main=starsystem.dev
