@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.0.0"
+      version: ">=1.0.1"
   interval: 10m0s
   releaseName: vpn
   targetNamespace: starsys-network
