@@ -9,7 +9,7 @@ spec:
       chart: wg-easy
       sourceRef:
         kind: HelmRepository
-        name: sealed-secrets
+        name: constellation
       version: ">=1.0.2"
   interval: 10m0s
   releaseName: vpn
