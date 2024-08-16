@@ -12,5 +12,5 @@ volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Retain
 allowVolumeExpansion: false
 parameters: 
-  archiveOnDelete: true
+  archiveOnDelete: "true"
   pathPattern: ${.PVC.annotations.nfs.cluster.starsystem.dev/path}
