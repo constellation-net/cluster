@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: storage-nfs
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: nfs
+      sourceRef:
+        kind: HelmRepository
+        name: constellation
+      version: ">=1.0.4"
+  interval: 10m0s
+  releaseName: storage
+  targetNamespace: starsys-storage
+  values:
+    common:
+      namespace: starsys-storage
+    pods:
+      # No need for node affinity here, the Scheduler is aware that the volume is pinned to a specific node and will schedule the Pod as such
+      priorityClassName: starsys-storage
+    nfs:
+      configMap:
+        name: nfs-exports
+      volume:
+        name: nfs-backend
+        storageClassName: "" # The volume already contains a storage class
+        mountPath: /data

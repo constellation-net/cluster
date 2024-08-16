@@ -1,0 +1,9 @@
+# This ConfigMap contains the content of the exports.txt file that the NFS server will read from to determine what directories it will be exporting
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nfs-exports
+  namespace: starsys-storage
+data:
+  exports: |
+    /data *(rw,no_subtree_check,all_squash,wdelay)
