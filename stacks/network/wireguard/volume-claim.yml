@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: vpn-peers
+  name: wireguard-peers
   namespace: starsys-network
   annotations:
     nfs.cluster.starsystem.dev/path: "wireguard"

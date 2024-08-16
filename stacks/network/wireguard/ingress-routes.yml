@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: vpn-wg-easy-dashboard
+  name: vpn-wireguard-dashboard
   namespace: starsys-network
 spec:
   entryPoints:
@@ -10,7 +10,7 @@ spec:
     - match: Host(`vpn.cluster.starsystem.dev`)
       kind: Rule
       services:
-        - name: vpn-wg-easy
+        - name: vpn-wireguard
           port: 51821
 #      middlewares:
 #        - name: authelia@kubernetescrd
@@ -18,12 +18,12 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteUDP
 metadata:
-  name: vpn-wg-easy-wireguard
+  name: vpn-wireguard-wireguard
   namespace: starsys-network
 spec:
   entryPoints:
     - wireguard
   routes:
     - services:
-        - name: vpn-wg-easy
+        - name: vpn-wireguard
           port: 51820
