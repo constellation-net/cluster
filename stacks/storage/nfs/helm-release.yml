@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.0.8"
+      version: ">=2.0.0"
   interval: 10m0s
   releaseName: storage
   targetNamespace: starsys-storage
@@ -23,8 +23,7 @@ spec:
       # No need for node affinity here, the Scheduler is aware that the volume is pinned to a specific node and will schedule the Pod as such
       priorityClassName: starsys-storage
     nfs:
-      configMap:
-        name: nfs-exports
+      provisioner: storage.cluster.starsystem.dev/nfs
       volume:
         name: nfs-backend
         storageClassName: local
