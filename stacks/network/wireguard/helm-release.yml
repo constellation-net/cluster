@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.0.2"
+      version: ">=1.0.3"
   interval: 10m0s
   releaseName: vpn
   targetNamespace: starsys-network
@@ -21,9 +21,9 @@ spec:
       namespace: starsys-network
     pods:
       priorityClassName: starsys-network
-    pvcName: wireguard-peers
     wireguard:
       publicAddress: connect.starsystem.dev
 #      defaultDns: pihole.starsys-network # Pihole Pod 
       # SSO will be handled by Authelia
       passwordSecret: {}
+      pvcName: wireguard-peers
