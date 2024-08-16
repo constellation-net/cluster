@@ -25,5 +25,5 @@ spec:
         name: nfs-exports
       volume:
         name: nfs-backend
-        storageClassName: "" # The volume already contains a storage class
+        storageClassName: local
         mountPath: /data
