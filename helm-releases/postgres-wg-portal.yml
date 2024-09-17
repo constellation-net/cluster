@@ -11,6 +11,7 @@ spec:
         kind: HelmRepository
         name: constellation
       version: ">=1.0.0"
+  suspend: true
   dependsOn:
     - local-provisioner
   interval: 10m0s
