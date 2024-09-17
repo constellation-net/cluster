@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=2.1.0"
+      version: ">=3.0.0"
   interval: 10m0s
   releaseName: kube-vip
   targetNamespace: kube-system

@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=1.1.0"
+      version: ">=2.0.0"
   interval: 10m0s
   releaseName: ddns
   targetNamespace: network-system

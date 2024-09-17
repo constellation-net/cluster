@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: constellation
-      version: ">=2.0.5"
+      version: ">=3.0.0"
   dependsOn:
     - minecraft-router
     - local-provisioner
