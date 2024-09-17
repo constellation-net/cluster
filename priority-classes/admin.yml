@@ -1,0 +1,8 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: admin
+description: Gives way to Pods responsible for cluster monitoring and management. Helps ensure admin tools are available even during an outage 
+value: 1000000000 # Maximum priority
+globalDefault: false
+preemptionPolicy: PreemptLowerPriority

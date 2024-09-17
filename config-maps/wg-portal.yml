@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wireguard-config
+  namespace: network-system
+data:
+  SERVERURL: connect.starsystem.dev
+  INTERNAL_SUBNET: "10.8.0.0"
+  PEERDNS: "192.168.1.99" # Traefik will route this to Pihole 

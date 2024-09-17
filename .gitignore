@@ -1,2 +1,5 @@
-.secret.*.yml
+secrets/*.yml
+secrets/*.yaml
 .DS_STORE
+wip.*.yml
+wip.*.yaml

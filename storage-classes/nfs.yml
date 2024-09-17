@@ -1,0 +1,18 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: nfs.csi.k8s.io
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+parameters:
+  server: nfs-server.storage-system
+  share: /
+  subDir: ${pvc.metadata.namespace}/${pvc.metadata.name}
+  mountPermissions: "0"
+  onDelete: archive
+mountOptions:
+  - nfsvers=4.1

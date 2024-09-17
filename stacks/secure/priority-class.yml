@@ -1,8 +1,0 @@
-apiVersion: scheduling.k8s.io/v1
-kind: PriorityClass
-metadata:
-  name: starsys-secure
-description: Gives security services absolute priority over any other system in the cluster, ensuring nothing else is alive if the security stack isn't
-value: 1000000000 # Maximum possible value
-globalDefault: false # Speaks for itself
-preemptionPolicy: PreemptLowerPriority # Kill lower priority Pods if needed

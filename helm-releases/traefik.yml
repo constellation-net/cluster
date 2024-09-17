@@ -1,0 +1,82 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: constellation
+      version: ">=2.0.0"
+  dependsOn:
+    - nfs-provisioner
+  interval: 10m0s
+  releaseName: ingress
+  targetNamespace: network-system
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    force: true # Replaces resources instead of merging them, avoids some confusing bugs
+  values:
+    pod:
+      args:
+        - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
+        - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
+        - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
+        - --entrypoints.dns-tcp.address=:53/tcp
+        - --entrypoints.dns-udp.address=:53/udp
+        - --entrypoints.minecraft.address=:25565
+        - --entrypoints.wireguard.address=:51820/udp
+        - --metrics.prometheus.addEntryPointsLabels
+        - --metrics.prometheus.addRoutersLabels
+        - --metrics.prometheus.addServicesLabels
+      envFrom:
+        - secretRef:
+            secretName: ingress-acme
+      templateArgs:
+        priorityClassName: system-cluster-critical
+        # Only run Traefik on a Control Plane node. Why? Because kube-vip's virtual IP can only route to control plane nodes and I cba with load balancing a single service
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
+                - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
+    pvc:
+      storageClassName: nfs
+      resources:
+        requests:
+          storage: 50Mi
+    service:
+      annotations:
+        kube-vip.io/loadbalancerIPs: 192.168.1.99
+        prometheus.cluster.starsystem.dev/scrape: true
+        prometheus.cluster.starsystem.dev/scheme: http
+        prometheus.cluster.starsystem.dev/path: /metrics
+        prometheus.cluster.starsystem.dev/port: 8008
+      loadBalancerIP: 192.168.1.99
+      type: LoadBalancer
+    corsMiddleware:
+      allowedOrigins:
+        - https://home.starsystem.dev
+    entrypoints:
+      - name: dns-udp
+        port: 53
+        protocol: UDP
+      - name: dns-tcp
+        port: 53
+        protocol: TCP
+      - name: minecraft
+        port: 25565
+        protocol: TCP
+      - name: wireguard
+        port: 51820
+        protocol: UDP

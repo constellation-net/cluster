@@ -1,0 +1,37 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wg-portal
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: wg-portal
+      sourceRef:
+        kind: HelmRepository
+        name: constellation
+      version: ">=1.0.0"
+  dependsOn:
+    - nfs-provisioner
+    - postgres-wg-portal
+    - lldap
+  interval: 10m0s
+  releaseName: wg-portal
+  targetNamespace: network-system
+  upgrade:
+    force: true
+  values:
+    pod:
+      templateArgs:
+        # TODO: affinity
+        # prefer not slownet
+        priorityClassName: system-cluster-critical
+        volumes:
+          - name: config
+            secret:
+              secretName: wg-portal-config
+    pvc:
+      storageClassName: nfs
+      resources:
+        requests:
+          storage: 500Mi

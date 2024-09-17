@@ -1,8 +1,0 @@
-apiVersion: scheduling.k8s.io/v1
-kind: PriorityClass
-metadata:
-  name: starsys-monitor
-description: Keeps monitors available during periods of degraded performance to help with recovery
-value: 100000 # x10^4 lower than system
-globalDefault: false # Speaks for itself
-preemptionPolicy: PreemptLowerPriority # Kill lower priority Pods if needed

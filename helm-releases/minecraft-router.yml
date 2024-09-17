@@ -1,0 +1,27 @@
+# MC Router acts as a proxy for all incoming TCP connections on port 25565.
+# It uses the destination hostname to route the connection to the appropriate server based on annotations in each server's Service manifest.
+# While Traefik is able to receive TCP connections on port 25565, it is unable to distinguish them via domain names, so Traefik should be used as Ingress, but then send the clients to MC Router for them to be proxied.
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minecraft-proxy
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: minecraft-router
+      sourceRef:
+        kind: HelmRepository
+        name: constellation
+      version: ">=1.1.0"
+  suspend: true 
+  interval: 10m0s
+  releaseName: minecraft-proxy
+  targetNamespace: games
+  values:
+    pod:
+      # See here for options: https://github.com/itzg/mc-router
+      args:
+        - --metrics-backend=discard # One of discard, expvar or influxdb
+      templateArgs:
+        priorityClassName: games

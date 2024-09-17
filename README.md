@@ -1,21 +1,26 @@
-# cluster
-Kubernetes manifests to do deployed to Constellation by FluxCD
+# Constellation Manifests
+This repository stores all the YAML manifests that are to be deployed to the Kubernetes cluster, and is reconciled by [FluxCD](https://fluxcd.io).
 
-## Namespaces
-### starsys-secure
-This namespace is home to any and all services dealing with important and secret data. Unlike most volumes, which are kept in the `starsys-storage` namespace, volumes containing secure data are kept within this namespace. This allows us to define a hard border around highly sensitive data and implement security protocols as such.
+## Repository Structure
+To keep things somewhat simple, there is a strict structure to the repository.
 
-This namespace contains the following Deployments:
-- [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets): encrypts Secrets for upload to Git repositories and securely decrypts them in the cluster
-- [LLDAP](https://github.com/lldap/lldap): an LDAP server with a neat UI for managing user credentials & group-based access
-- [Authelia](https://authelia.com): Single-Sign On provider that uses LLDAP to control access to services that don't natively support LDAP
+### Flux Manifests
+This is a directory created directly by Flux, and is not intended to be edited. 
 
-Besides Deployments, the following other resources may also be kept here:
-- Secrets containing sealed-secrets' private keys, used for decryption
-- SealedSecrets and Secrets (unsealed) that are consumed by some of the Deployments listed above
-- ServiceAccounts, ClusterRoles and ClusterRoleBindings that give certain access to the resources in this namespace
+### Resource Directories
+Each type of resource deployed to the cluster via this repository (e.g. Secrets, HelmReleases, ConfigMaps, etc) has its own directory in the repository root. This makes naming easier and much more consistent.
 
-#### Rules & Considerations
-This namespace should ***NEVER*** be exposed directly to the outside world. It must be proxied, with appropriate security in place to ensure a small attack vector. This is why some of these services could go in `starsys-system`, but don't.
+## Naming Conventions
+There are a few rules to how files are named in this repository. These exist to keep things consistent and avoid confusion or having to rename files in the future.
 
-RBAC resources for services that need access to data (e.g. volumes) from outside this namespace must be created within this namespace. This is a top-down approach to access, where less secure Deployments must be GIVEN access, not TAKE it.
+### HelmReleases & Dependents
+Each Helm Release file should be named after the `releaseName` within that file's manifest. Likewise, any dependent manifests (Secrets, ConfigMaps, etc) should have the exact same name. 
+
+## Sealed Secrets
+This repository relies on [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) to encrypt Secrets in the repository. This allows the repository to be publicly available without risking the safety of API tokens, passwords and other secrets.
+
+Unsealed secrets should be kept locally in a `secrets` directory, which is in the `.gitignore`. Before commiting changes to the repository, you should run the `seal-secrets.sh` script, which will encrypt all secrets in `secrets` and dump the SealedSecrets in `sealed-secrets`.
+
+The public key for encrypting secrets is kept at `sealed-secrets/kubeseal.pub`. In the future, this will likely be replaced with a URL solution that supports rolling certificates.
+
+> **NOTE:** There is a Helm Release called `sealed-secrets`. This is what deploys the service that automatically decrypts SealedSecrets and is not to be confused with the `sealed-secrets` directory, which contains a series of SealedSecret manifests. 

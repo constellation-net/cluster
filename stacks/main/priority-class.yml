@@ -1,8 +1,0 @@
-apiVersion: scheduling.k8s.io/v1
-kind: PriorityClass
-metadata:
-  name: starsys
-description: Gives absolute priority over other Pods to the most essential services that keep Constellation accessible
-value: 0 # Maximum value possible
-globalDefault: true # All Pods use this PriorityClass by default, unless specified otherwise
-preemptionPolicy: Never # Do not kill other Pods when capacity is limited

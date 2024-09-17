@@ -1,0 +1,63 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nfs-provisioner
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: csi-driver-nfs
+      sourceRef:
+        kind: HelmRepository
+        name: nfs-driver
+      version: ">=4.8.0"
+  interval: 1h0m0s
+  releaseName: nfs-provisioner
+  targetNamespace: storage-system
+  dependsOn:
+    - nfs-server
+  upgrade:
+    force: true
+  values:
+    rbac:
+      name: nfs-provisioner
+    controller:
+      name: nfs-provisioner-controller
+      defaultOnDeletePolicy: retain
+      dnsPolicy: ClusterFirst
+      runOnControlPlane: true
+      priorityClassName: system-node-critical
+      # Run the controller on the same node as the NFS server
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - nfs-server
+                  - key: release
+                    operator: In
+                    values:
+                      - nfs-server
+              topologyKey: kubernetes.io/hostname
+      # Tolerate running on the database node
+      tolerations:
+        - key: taint.node.cluster.starsystem.dev
+          operator: Equal
+          value: database
+          effect: PreferNoSchedule
+        - key: taint.node.cluster.starsystem.dev
+          operator: Equal
+          value: database
+          effect: PreferNoExecute
+    serviceAccount:
+      controller: nfs-provisioner-controller
+      node: nfs-provisioner-node
+    externalSnapshotter:
+      customResourceDefinitions:
+        enabled: false
+    node:
+      name: nfs-provisioner-node
+      dnsPolicy: ClusterFirst

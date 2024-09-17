@@ -1,0 +1,46 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: local-provisioner
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: path-provisioner
+      sourceRef:
+        kind: HelmRepository
+        name: constellation
+      version: ">=2.0.0"
+  interval: 10m0s
+  releaseName: local-provisioner
+  targetNamespace: storage-system
+  upgrade:
+    force: true
+  values:
+    pod:
+      templateArgs:
+        priorityClassName: system-cluster-critical
+    nodePaths:
+      database:
+        nodePathMap:
+          - node: luna
+            paths:
+              - /mnt/cluster/databases
+      local:
+        nodePathMap:
+          - node: luna
+            paths:
+              - /mnt/cluster
+          - node: sol
+            paths:
+              - /mnt/cluster
+      nas:
+        nodePathMap:
+          - node: sol
+            paths:
+              - /mnt/nas/
+      game:
+        nodePathMap:
+          - node: clover
+            paths:
+              - /games
