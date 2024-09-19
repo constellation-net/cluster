@@ -15,7 +15,7 @@ spec:
   releaseName: nfs-provisioner
   targetNamespace: storage-system
   dependsOn:
-    - nfs-server
+    - name: nfs-server
   upgrade:
     force: true
   values:

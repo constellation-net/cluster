@@ -13,7 +13,7 @@ spec:
       version: ">=1.0.0"
   suspend: true
   dependsOn:
-    - nfs-provisioner
+    - name: nfs-provisioner
   interval: 10m0s
   releaseName: pihole
   targetNamespace: network-system

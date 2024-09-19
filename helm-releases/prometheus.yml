@@ -13,7 +13,7 @@ spec:
       version: ">=1.0.0"
   suspend: true 
   dependsOn:
-    - local-provisioner
+    - name: local-provisioner
   interval: 10m0s
   releaseName: prometheus
   targetNamespace: storage-system

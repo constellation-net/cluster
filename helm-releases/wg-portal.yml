@@ -13,9 +13,9 @@ spec:
       version: ">=1.0.0"
   suspend: true
   dependsOn:
-    - nfs-provisioner
-    - postgres-wg-portal
-    - lldap
+    - name: nfs-provisioner
+    - name: postgres-wg-portal
+    # - name: lldap
   interval: 10m0s
   releaseName: wg-portal
   targetNamespace: network-system

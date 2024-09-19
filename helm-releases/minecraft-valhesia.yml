@@ -12,8 +12,8 @@ spec:
         name: constellation
       version: ">=3.0.0"
   dependsOn:
-    - minecraft-router
-    - local-provisioner
+    - name: minecraft-router
+    - name: local-provisioner
   suspend: true # This server is no longer used. This will disable the release without deleting the manifests
   interval: 10m0s
   releaseName: minecraft-valhesia
