@@ -26,7 +26,8 @@ spec:
   entryPoints:
     - dns-udp
   routes:
-    - services:
+    - match: HostSNI(`*`)
+      services:
         - name: pihole
           port: 53
 ---
