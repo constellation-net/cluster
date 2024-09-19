@@ -16,10 +16,7 @@ spec:
   interval: 10m0s
   releaseName: ingress
   targetNamespace: network-system
-  install:
-    crds: Create
   upgrade:
-    crds: CreateReplace
     force: true # Replaces resources instead of merging them, avoids some confusing bugs
   values:
     pod:
