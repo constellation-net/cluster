@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kube-vip-config
-  namespace: network-system
+  namespace: kube-system
 stringData:
   # Virtual IP broadcasting via ARP
   address: 192.168.1.100
@@ -14,7 +14,7 @@ stringData:
   vip_leaseduration: 5
   vip_renewdeadline: 3
   vip_retryperiod: 1
-  cp_namespace: network-system
+  cp_namespace: kube-system
   enable_node_labeling: true
   # Service load balancing
   svc_enable: true
