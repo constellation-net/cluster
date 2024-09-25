@@ -5,41 +5,43 @@ metadata:
 data:
   config.json: |-
     {
-      "database": {
-        "nodePathMap": [
-          {
-            "node": "luna",
-            "paths": [
-              "/mnt/cluster/databases"
-            ]
-          }
-        ]
-      },
-      "game": {
-        "nodePathMap": [
-          {
-            "node": "clover",
-            "paths": [
-              "/games"
-            ]
-          }
-        ]
-      },
-      "local": {
-        "nodePathMap": [
-          {
-            "node": "luna",
-            "paths": [
-              "/mnt/cluster"
-            ]
-          },
-          {
-            "node": "sol",
-            "paths": [
-              "/mnt/cluster"
-            ]
-          }
-        ]
+      "storageClassConfigs": {
+        "database": {
+          "nodePathMap": [
+            {
+              "node": "luna",
+              "paths": [
+                "/mnt/cluster/databases"
+              ]
+            }
+          ]
+        },
+        "game": {
+          "nodePathMap": [
+            {
+              "node": "clover",
+              "paths": [
+                "/games"
+              ]
+            }
+          ]
+        },
+        "local": {
+          "nodePathMap": [
+            {
+              "node": "luna",
+              "paths": [
+                "/mnt/cluster"
+              ]
+            },
+            {
+              "node": "sol",
+              "paths": [
+                "/mnt/cluster"
+              ]
+            }
+          ]
+        }
       }
     }
   helperPod.yaml: |-
