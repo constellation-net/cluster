@@ -5,6 +5,8 @@ metadata:
 spec:
   template:
     spec:
+      nodeSelector:
+        class.node.cluster.starsystem.dev: games
       priorityClassName: games
       containers:
         - name: mc-router
