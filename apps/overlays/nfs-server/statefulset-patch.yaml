@@ -11,7 +11,7 @@ spec:
             nodeSelectorTerms:
               - matchExpressions:
                 # TODO: make sure this matches, maybe make a separate class just for NFS
-                - key: class.nodes.cluster.starsystem.dev
+                - key: class.node.cluster.starsystem.dev
                   operator: In
                   values:
                     - database
