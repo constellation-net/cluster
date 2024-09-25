@@ -15,9 +15,10 @@ spec:
       containers:
         - name: path-provisioner
           image: rancher/local-path-provisioner:v0.0.29
-          args:
-            - start
+          command:
+            - local-path-provisioner
             - --debug
+            - start
             - --config
             - /etc/config/config.json
             - --service-account-name
