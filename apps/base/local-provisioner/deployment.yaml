@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-provisioner
+spec:
+  selector:
+    matchLabels:
+      app: local-provisioner
+  template:
+    metadata:
+      labels:
+        app: local-provisioner
+    spec:
+      serviceAccountName: local-provisioner
+      containers:
+        - name: path-provisioner
+          image: rancher/local-path-provisioner
+          args:
+            - --debug
+            - start
+            - --config
+            - /etc/config/config.json
+            - --service-account-name
+            - local-provisioner
+            - --provisioner-name
+            - storage.cluster.starsystem.dev/local-provisioner
+            - --helper-image
+            - busybox:latest
+            - --configmap-name
+            - local-provisioner
+          env:
+            - name: CONFIG_MOUNT_PATH
+              value: /etc/config
+            - name: POD_NAMESPACE
+              value: kube-system
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50M 
+            limits:
+              cpu: 200m
+              memory: 100M
+          volumeMounts:
+            - name: config
+              mountPath: /etc/config
+      volumes:
+        - name: config
+          configMap:
+            name: local-provisioner

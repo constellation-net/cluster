@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: satisfactory
+spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Delete
+    whenScaled: Delete
+  serviceName: satisfactory-headless
+  selector:
+    matchLabels:
+      app: satisfactory
+  template:
+    metadata:
+      labels:
+        app: satisfactory
+    spec:
+      containers:
+        - name: satisfactory
+          image: wolveix/satisfactory-server:latest
+          ports:
+            - name: satisfactory
+              containerPort: 7777
+              protocol: TCP
+            - name: satisfactory
+              containerPort: 7777
+              protocol: UDP
+          env:
+            - name: ROOTLESS
+              value: "false"
+            - name: STEAMBETA
+              value: "false"
+          livenessProbe:
+            exec:
+              command:
+                - bash
+                - /healthcheck.sh
+              initialDelaySeconds: 120
+              periodSeconds: 30
+              timeoutSeconds: 10
+          resources:
+            requests:
+              cpu: "2"
+              memory: 8G
+          volumeMounts:
+            - name: data
+              mountPath: /config
+      volumeClaimTemplates:
+        - metadata:
+            name: data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 1Gi
+            storageClassName: ""

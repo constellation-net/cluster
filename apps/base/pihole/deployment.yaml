@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pihole
+spec:
+  selector:
+    matchLabels:
+      app: pihole
+  template:
+    metadata:
+      labels:
+        app: pihole
+    spec:
+      containers:
+        - name: pihole
+          image: pihole/pihole:latest
+          ports:
+            - name: dns-tcp
+              containerPort: 53
+              protocol: TCP
+            - name: dns-udp
+              containerPort: 53
+              protocol: UDP
+            - name: dashboard
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: DNSMASQ_LISTENING
+              value: all
+            - name: TZ
+              value: Europe/London
+          envFrom:
+            - secretRef:
+                secretName: pihole
+          resources:
+            requests:
+              cpu: 250m
+              memory: 50M 
+            limits:
+              cpu: 500m
+              memory: 100M
+          volumeMounts:
+            - name: data
+              mountPath: /etc
+        - name: prometheus
+          image: ekofr/pihole-exporter:latest
+          ports:
+            - name: metrics
+              containerPort: 9617
+          env:
+            - name: PIHOLE_HOSTNAME
+              value: localhost
+            - name: PIHOLE_PORT
+              value: "80"
+            - name: PIHOLE_PROTOCOL
+              value: http
+            - name: PORT
+              value: "9617"
+          envFrom:
+            - secretRef:
+                secretName: pihole-exporter
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50M 
+            limits:
+              cpu: 200m
+              memory: 100M
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pihole

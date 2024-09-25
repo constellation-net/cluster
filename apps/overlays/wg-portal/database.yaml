@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: wg-portal
+spec:
+  priorityClassName: system-cluster-critical
+  instances: 1
+  storage:
+    size: 5Gi
+    storageClass: database
+  bootstrap:
+    initdb:
+      database: wg-portal
+      owner: wg-portal
+      secret:
+        name: postgres-wg-portal

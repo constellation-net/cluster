@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-router
+spec:
+  selector:
+    matchLabels:
+      app: minecraft-router
+  template:
+    metadata:
+      labels:
+        app: minecraft-router
+    spec:
+      serviceAccountName: minecraft-router
+      containers:
+        - name: mc-router
+          image: itzg/mc-router:latest
+          ports:
+            - name: minecraft
+              containerPort: 25565
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50M

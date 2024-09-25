@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-router
+spec:
+  template:
+    spec:
+      priorityClassName: games
+      containers:
+        - name: mc-router
+          # See here for options: https://github.com/itzg/mc-router
+          args:
+            - --in-kube-cluster # Enables kubernetes service discovery
+            - --metrics-backend=discard # One of discard, expvar or influxdb

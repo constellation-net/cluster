@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wg-portal
+spec:
+  selector:
+    matchLabels:
+      app: wg-portal
+  template:
+    metadata:
+      labels:
+        app: wg-portal
+    spec:
+      containers:
+        - name: wg-portal
+          image: wgportal/wg-portal:v2
+          ports:
+            - name: dashboard
+              port: 8888
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          volumeMounts:
+            - name: peers
+              mountPath: /etc/wireguard
+              readOnly: false
+            - name: config
+              mountPath: /app/config
+              readOnly: true
+        - name: wireguard
+          image: lscr.io/linuxserver/wireguard:latest
+          ports:
+            - name: wireguard
+              port: 51820
+          securityContext:
+            capabilities:
+              add:
+                - SYS_MODULE
+                - NET_ADMIN
+            sysctls:
+              - name: net.ipv4.ip_forward
+                value: "1"
+              - name: net.ipv4.conf.all.forwarding
+                value: "1"
+              - name: net.ipv4.conf.all.src_valid_mark
+                value: "1"
+          env:
+            - name: SERVERPORT
+              value: "51820"
+            - name: LOG_CONFS
+              value: "false"
+            - name: PEERS
+              value: "1" # Enables server mode, peers won't be created though due to the directory being read only
+            - name: PERSISTENTKEEPALIVE_PEERS
+              value: "25"
+            - name: TZ
+              value: Europe/London
+            - name: ALLOWEDIPS
+              value: 0.0.0.0/0,::/0,192.168.1.2/32
+          volumeMounts:
+            - name: kernel
+              mountPath: /lib/modules
+              readOnly: false
+            - name: peers
+              mountPath: /etc/wireguard
+              readOnly: true # Prevents wireguard from writing these itself
+      volumes:
+        - name: peers
+          persistentVolumeClaim:
+            claimName: wg-portal
+            readOnly: false
+        # Needed to properly load iptables
+        - name: kernel
+          hostPath:
+            path: /lib/modules
+            type: Directory

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wg-portal
+  labels:
+    app: wg-portal
+spec:
+  selector:
+    app: wg-portal
+  ports:
+    - name: wireguard
+      port: 51820
+      targetPort: 51820
+      protocol: UDP
+    - name: dashboard
+      port: 8888
+      targetPort: 8888
+      protocol: TCP

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole
+  labels:
+    app: pihole
+  annotations:
+    prometheus.cluster.starsystem.dev/scrape: "true"
+    prometheus.cluster.starsystem.dev/scheme: http
+    prometheus.cluster.starsystem.dev/path: /metrics
+    prometheus.cluster.starsystem.dev/port: "9617"
+spec:
+  selector:
+    app: pihole
+  ports:
+    - name: dns-tcp
+      port: 53
+      targetPort: 53
+      protocol: TCP
+    - name: dns-udp
+      port: 53
+      targetPort: 53
+      protocol: UDP
+    - name: dashboard
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: metrics
+      port: 9617
+      targetPort: 9617
+      protocol: TCP

@@ -1,0 +1,20 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ddns
+  namespace: flux-system
+spec:
+  suspend: true
+  dependsOn:
+    - name: namespaces
+    - name: sealed-secrets
+  interval: 10m0s
+  timeout: 30s
+  targetNamespace: network-system
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/overlays/ddns
+  prune: true
+  force: true
+  wait: true

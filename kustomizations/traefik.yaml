@@ -1,0 +1,21 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: traefik
+  namespace: flux-system
+spec:
+  suspend: true
+  dependsOn:
+    - name: namespaces
+    - name: sealed-secrets
+    - name: nfs-provisioner
+  interval: 10m0s
+  timeout: 30s
+  targetNamespace: network-system
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/overlays/traefik
+  prune: true
+  force: true
+  wait: true

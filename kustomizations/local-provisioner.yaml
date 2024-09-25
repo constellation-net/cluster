@@ -1,0 +1,18 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: local-provisioner
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: namespaces
+  interval: 10m0s
+  timeout: 30s
+  targetNamespace: storage-system
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/overlays/local-provisioner
+  prune: true
+  force: true
+  wait: true

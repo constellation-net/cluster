@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lldap
+stringData:
+  LLDAP_LDAP_BASE_DN: dc=starsystem,dc=dev
+  LLDAP_HTTP_URL: https://users.starsystem.dev
