@@ -14,7 +14,7 @@ spec:
       serviceAccountName: local-provisioner
       containers:
         - name: path-provisioner
-          image: rancher/local-path-provisioner
+          image: rancher/local-path-provisioner:v0.0.29
           args:
             - --debug
             - start
