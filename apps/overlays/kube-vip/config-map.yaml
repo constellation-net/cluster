@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kube-vip
-stringData:
+data:
   # Virtual IP broadcasting via ARP
   address: "192.168.1.119"
   vip_ddns: "false"
