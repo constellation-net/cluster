@@ -16,8 +16,8 @@ spec:
         - name: path-provisioner
           image: rancher/local-path-provisioner:v0.0.29
           args:
-            - --debug
             - start
+            - --debug
             - --config
             - /etc/config/config.json
             - --service-account-name
