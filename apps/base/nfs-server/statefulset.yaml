@@ -40,13 +40,13 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /export
-      volumeClaimTemplates:
-        - metadata:
-            name: data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 5Gi
-            storageClassName: ""
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: ""

@@ -45,13 +45,13 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /config
-      volumeClaimTemplates:
-        - metadata:
-            name: data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 1Gi
-            storageClassName: ""
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: ""

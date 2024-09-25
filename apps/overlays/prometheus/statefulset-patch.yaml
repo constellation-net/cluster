@@ -13,13 +13,13 @@ spec:
                   app: prometheus
               topologyKey: kubernetes.io/hostname
       priorityClassName: system-cluster-critical
-      volumeClaimTemplates:
-        - metadata:
-            name: data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 120Gi
-            storageClassName: database
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 120Gi
+        storageClassName: database

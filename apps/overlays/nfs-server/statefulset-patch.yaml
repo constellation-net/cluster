@@ -16,13 +16,13 @@ spec:
                   values:
                     - database
       priorityClassName: system-cluster-critical
-      volumeClaimTemplates:
-        - metadata:
-            name: data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 5Gi
-            storageClassName: local
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: local

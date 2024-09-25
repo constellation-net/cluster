@@ -31,17 +31,17 @@ spec:
               mountPath: /prometheus
             - name: config
               mountPath: /etc/prometheus/prometheus.yml
-      volumeClaimTemplates:
-        - metadata:
-            name: data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 5Gi
-            storageClassName: ""
       volumes:
         - name: config
           configMap:
             name: prometheus
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: ""
