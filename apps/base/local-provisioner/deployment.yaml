@@ -29,11 +29,15 @@ spec:
             - busybox:latest
             - --configmap-name
             - local-provisioner
+            - --helper-pod-file
+            - /etc/config/helperPod.yaml
           env:
             - name: CONFIG_MOUNT_PATH
               value: /etc/config
             - name: POD_NAMESPACE
-              value: kube-system
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           resources:
             requests:
               cpu: 100m
