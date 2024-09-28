@@ -6,7 +6,10 @@ spec:
   template:
     spec:
       nodeSelector:
-        class.node.cluster.starsystem.dev: database
+        starsystem.dev/nfs: "true"
+      tolerations:
+        - key: starsystem.dev/database
+          operator: Exists
       priorityClassName: system-cluster-critical
   volumeClaimTemplates:
     - metadata:

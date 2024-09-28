@@ -6,7 +6,10 @@ spec:
   template:
     spec:
       nodeSelector:
-        class.node.cluster.starsystem.dev: games
+        starsystem.dev/games: "true"
+      tolerations:
+        - key: starsystem.dev/games
+          operator: Exists
       priorityClassName: games
       containers:
         - name: mc-router

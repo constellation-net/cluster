@@ -13,8 +13,8 @@ spec:
         configMapName: postgres-operator
         create: true
         namespace: storage-system
+    nodeSelector:
+      starsystem.dev/database: "true"
     tolerations:
-      - key: taint.node.cluster.starsystem.dev
-        operator: Equal
-        value: database
-        effect: PreferNoSchedule
+      - key: starsystem.dev/database
+        operator: Exists

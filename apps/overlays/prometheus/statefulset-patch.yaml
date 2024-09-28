@@ -12,6 +12,11 @@ spec:
                 matchLabels:
                   app: prometheus
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        starsystem.dev/prometheus: "true"
+      tolerations:
+        - key: starsystem.dev/database
+          operator: Exists
       priorityClassName: system-cluster-critical
   volumeClaimTemplates:
     - metadata:

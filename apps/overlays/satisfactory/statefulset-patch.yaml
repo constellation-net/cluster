@@ -6,6 +6,9 @@ spec:
   template:
     spec:
       priorityClassName: games
+      tolerations:
+        - key: starsystem.dev/games
+          operator: Exists
   volumeClaimTemplates:
     - metadata:
         name: data
