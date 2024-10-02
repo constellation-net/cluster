@@ -15,8 +15,6 @@ spec:
   upgrade:
     force: true
   values:
-    driver:
-      name: provisioner.starsystem.dev/nfs
     rbac:
       name: nfs-provisioner
     controller:
