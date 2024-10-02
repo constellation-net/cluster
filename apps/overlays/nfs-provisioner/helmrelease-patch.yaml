@@ -15,11 +15,9 @@ spec:
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
-                matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                      - nfs-server
+                matchLabels:
+                  app: nfs-server
+              topologyKey: kubernetes.io/hostname
     externalSnapshotter:
       customResourceDefinitions:
         enabled: false
