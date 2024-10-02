@@ -11,13 +11,8 @@ spec:
       runOnControlPlane: true
       priorityClassName: system-node-critical
       # Run the controller on the same node as the NFS server
-      affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchLabels:
-                  app: nfs-server
-              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        starsystem.dev/nfs: "true"
     externalSnapshotter:
       customResourceDefinitions:
         enabled: false
