@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - config-map.yaml
   - ../../base/local-provisioner
-  - storage-classes.yaml
+  - storage-class.yaml
 patches:
   - path: deployment-patch.yaml
     target:
