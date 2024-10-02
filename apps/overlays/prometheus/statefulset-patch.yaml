@@ -3,6 +3,7 @@ kind: StatefulSet
 metadata:
   name: prometheus
 spec:
+  replicas: 2
   template:
     spec:
       affinity:
@@ -14,9 +15,6 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         starsystem.dev/prometheus: "true"
-      tolerations:
-        - key: starsystem.dev/database
-          operator: Exists
       priorityClassName: system-cluster-critical
   volumeClaimTemplates:
     - metadata:
@@ -27,4 +25,4 @@ spec:
         resources:
           requests:
             storage: 120Gi
-        storageClassName: database
+        storageClassName: local

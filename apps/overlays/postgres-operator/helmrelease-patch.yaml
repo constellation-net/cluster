@@ -15,6 +15,3 @@ spec:
         namespace: storage-system
     nodeSelector:
       starsystem.dev/database: "true"
-    tolerations:
-      - key: starsystem.dev/database
-        operator: Exists

@@ -25,10 +25,6 @@ spec:
                     values:
                       - nfs-server
               topologyKey: kubernetes.io/hostname
-      # Tolerate running on the database node
-      tolerations:
-        - key: starsystem.dev/database
-          operator: Exists
     externalSnapshotter:
       customResourceDefinitions:
         enabled: false

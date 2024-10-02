@@ -6,26 +6,6 @@ data:
   config.json: |-
     {
       "storageClassConfigs": {
-        "database": {
-          "nodePathMap": [
-            {
-              "node": "luna",
-              "paths": [
-                "/mnt/cluster/databases"
-              ]
-            }
-          ]
-        },
-        "game": {
-          "nodePathMap": [
-            {
-              "node": "clover",
-              "paths": [
-                "/games"
-              ]
-            }
-          ]
-        },
         "local": {
           "nodePathMap": [
             {
@@ -38,6 +18,12 @@ data:
               "node": "sol",
               "paths": [
                 "/mnt/cluster"
+              ]
+            },
+            {
+              "node": "clover",
+              "paths": [
+                "/games"
               ]
             }
           ]
@@ -53,9 +39,7 @@ data:
     spec:
       priorityClassName: system-node-critical
       tolerations:
-        - key: node.kubernetes.io/disk-pressure
-          operator: Exists
-          effect: NoSchedule
+        - operator: Exists
       containers:
         - name: helper
           image: rancher/mirrored-library-busybox:1.36.1

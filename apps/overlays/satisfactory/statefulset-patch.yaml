@@ -6,6 +6,8 @@ spec:
   template:
     spec:
       priorityClassName: games
+      nodeSelector:
+        starsystem.dev/games: "true"
       tolerations:
         - key: starsystem.dev/games
           operator: Exists
@@ -18,4 +20,4 @@ spec:
         resources:
           requests:
             storage: 32Gi
-        storageClassName: game
+        storageClassName: local

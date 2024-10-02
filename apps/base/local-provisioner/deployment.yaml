@@ -24,7 +24,7 @@ spec:
             - --service-account-name
             - local-provisioner
             - --provisioner-name
-            - storage.cluster.starsystem.dev/local-provisioner
+            - provisioner.starsystem.dev/local
             - --helper-image
             - busybox:latest
             - --configmap-name

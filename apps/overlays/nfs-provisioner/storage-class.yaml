@@ -11,7 +11,7 @@ allowVolumeExpansion: true
 parameters:
   server: nfs-server.storage-system
   share: /
-  subDir: ${pvc.metadata.namespace}/${pvc.metadata.name}
+  subDir: ${pvc.metadata.name}
   mountPermissions: "0"
   onDelete: archive
 mountOptions:

@@ -5,9 +5,12 @@ metadata:
 spec:
   priorityClassName: system-cluster-critical
   instances: 1
+  affinity:
+    nodeSelector: 
+      starsystem.dev/database: "true"
   storage:
     size: 5Gi
-    storageClass: database
+    storageClass: local
   bootstrap:
     initdb:
       database: wg-portal
