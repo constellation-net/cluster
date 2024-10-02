@@ -7,7 +7,7 @@ spec:
   dependsOn:
     - name: namespaces
   interval: 10m0s
-  timeout: 30s
+  timeout: 1m0s
   targetNamespace: network-system
   sourceRef:
     kind: GitRepository

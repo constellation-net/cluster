@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: postgres-operator
   interval: 1h0m0s
-  timeout: 30s
+  timeout: 1m0s
   releaseName: postgres-operator
   install:
     crds: Create
