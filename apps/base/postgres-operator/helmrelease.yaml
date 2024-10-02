@@ -19,7 +19,6 @@ spec:
     crds: CreateReplace
   values:
     fullnameOverride: postgres-operator
-    nameOverride: postgres-operator
     config:
       name: postgres-operator
     service:
