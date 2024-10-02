@@ -1,8 +1,0 @@
-apiVersion: scheduling.k8s.io/v1
-kind: PriorityClass
-metadata:
-  name: games
-description: Pushes game servers to the front of the scheduling queue should the VM go down
-value: 10000000
-globalDefault: false
-preemptionPolicy: Never

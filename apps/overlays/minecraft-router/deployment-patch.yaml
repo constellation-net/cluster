@@ -10,7 +10,6 @@ spec:
       tolerations:
         - key: starsystem.dev/games
           operator: Exists
-      priorityClassName: games
       containers:
         - name: mc-router
           # See here for options: https://github.com/itzg/mc-router

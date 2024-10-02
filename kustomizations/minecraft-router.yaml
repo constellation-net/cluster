@@ -7,7 +7,6 @@ spec:
   suspend: true
   dependsOn:
     - name: namespaces
-    - name: priority-classes
     - name: traefik
   interval: 10m0s
   timeout: 30s
