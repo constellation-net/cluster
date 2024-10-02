@@ -7,11 +7,5 @@ spec:
   targetNamespace: storage-system
   values:
     priorityClassName: system-cluster-critical
-    monitoring:
-      podMonitorEnabled: false # TODO: requires prometheus-operator crds
-      grafanaDashboard:
-        configMapName: postgres-operator
-        create: true
-        namespace: storage-system
     nodeSelector:
       starsystem.dev/database: "true"
