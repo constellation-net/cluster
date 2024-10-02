@@ -20,7 +20,6 @@ spec:
                     operator: In
                     values:
                       - nfs-server
-              topologyKey: kubernetes.io/hostname
     externalSnapshotter:
       customResourceDefinitions:
         enabled: false
