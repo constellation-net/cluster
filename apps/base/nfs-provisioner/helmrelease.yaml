@@ -11,6 +11,7 @@ spec:
         kind: HelmRepository
         name: nfs-driver
   interval: 1h0m0s
+  timeout: 30s
   releaseName: nfs-provisioner
   upgrade:
     force: true
