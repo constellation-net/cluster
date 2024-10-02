@@ -8,7 +8,7 @@ spec:
   values:
     priorityClassName: system-cluster-critical
     monitoring:
-      podMonitorEnabled: true
+      podMonitorEnabled: false # TODO: requires prometheus-operator crds
       grafanaDashboard:
         configMapName: postgres-operator
         create: true
