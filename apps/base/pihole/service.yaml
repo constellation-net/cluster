@@ -5,10 +5,10 @@ metadata:
   labels:
     app: pihole
   annotations:
-    prometheus.cluster.starsystem.dev/scrape: "true"
-    prometheus.cluster.starsystem.dev/scheme: http
-    prometheus.cluster.starsystem.dev/path: /metrics
-    prometheus.cluster.starsystem.dev/port: "9617"
+    prometheus.starsystem.dev/scrape: "true"
+    prometheus.starsystem.dev/scheme: http
+    prometheus.starsystem.dev/path: /metrics
+    prometheus.starsystem.dev/port: "9617"
 spec:
   selector:
     app: pihole

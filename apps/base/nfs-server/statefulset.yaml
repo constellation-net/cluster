@@ -34,6 +34,7 @@ spec:
             requests:
               cpu: 100m
               memory: 100M
+            # Adding limits here causes problems, turns out containerd doesn't let you have CPU limits on privileged containers
           volumeMounts:
             - name: data
               mountPath: /export

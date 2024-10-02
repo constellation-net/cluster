@@ -19,21 +19,21 @@ data:
           - source_labels: [__meta_kubernetes_service_name]
             action: replace
             target_label: kubernetes_service
-          # Service must have prometheus.cluster.starsystem.dev/scrape=true
-          - source_labels: [__meta_kubernetes_service_annotationpresent_prometheus_cluster_starsystem_dev_scrape]
+          # Service must have prometheus.starsystem.dev/scrape=true
+          - source_labels: [__meta_kubernetes_service_annotationpresent_prometheus_starsystem_dev_scrape]
             action: keep
-          # Fetches value of prometheus.cluster.starsystem.dev/scheme
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_cluster_starsystem_dev_scheme]
+          # Fetches value of prometheus.starsystem.dev/scheme
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_starsystem_dev_scheme]
             action: replace
             target_label: __scheme__
             regex: (https?)
-          # Fetches value of prometheus.cluster.starsystem.dev/path
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_cluster_starsystem_dev_path]
+          # Fetches value of prometheus.starsystem.dev/path
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_starsystem_dev_path]
             action: replace
             target_label: __metrics_path__
             regex: (.+)
-          # Fetches value of prometheus.cluster.starsystem.dev/port
-          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_cluster_starsystem_dev_port]
+          # Fetches value of prometheus.starsystem.dev/port
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_starsystem_dev_port]
             action: replace
             target_label: __address__
             regex: ([^:]+)(?::\d+)?;(\d+)
