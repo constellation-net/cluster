@@ -4,7 +4,7 @@ metadata:
   name: nfs
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
-provisioner: nfs.csi.k8s.io
+provisioner: provisioner.starsystem.dev/nfs
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Retain
 allowVolumeExpansion: true
