@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: starsys-home
+  name: home
   labels:
     # Allow some degree of privileges
     pod-security.kubernetes.io/enforce: baseline
