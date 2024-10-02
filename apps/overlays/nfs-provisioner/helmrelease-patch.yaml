@@ -8,7 +8,6 @@ spec:
   values:
     controller:
       defaultOnDeletePolicy: retain
-      runOnControlPlane: true
       priorityClassName: system-node-critical
       # Run the controller on the same node as the NFS server
       affinity:
