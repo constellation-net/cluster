@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitea
+  labels:
+    app: gitea
+spec:
+  selector:
+    app: gitea
+  ports:
+    - name: ui
+      port: 3000
+      targetPort: 3000
+      protocol: TCP
+    - name: ssh
+      port: 2222
+      targetPort: 2222
+      protocol: TCP

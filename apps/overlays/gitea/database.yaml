@@ -1,12 +1,12 @@
 apiVersion: acid.zalan.do/v1
 kind: postgresql
 metadata:
-  name: wg-portal
+  name: gitea
 spec:
   users:
-    wgportal: []
+    gitea: []
   databases:
-    wgportal: wgportal
+    gitea: gitea
   postgresql:
     version: "16"
   volume:

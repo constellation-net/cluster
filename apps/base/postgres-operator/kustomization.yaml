@@ -1,5 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - helmrepository.yaml
-  - helmrelease.yaml
+  - crd-operator-configuration.yaml
+  - crd-team.yaml
+  - crd-cluster.yaml
+  - cluster-role.yaml
+  - service-account.yaml
+  - pod-cluster-role.yaml
+  - deployment.yaml
+  - service.yaml

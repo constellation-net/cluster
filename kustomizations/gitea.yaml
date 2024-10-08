@@ -1,20 +1,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: prometheus
+  name: gitea
   namespace: flux-system
 spec:
   dependsOn:
     - name: namespaces
-    - name: sealed-secrets
     - name: local-provisioner
+    - name: nfs-provisioner
+    - name: postgres-operator
   interval: 10m0s
   timeout: 1m0s
-  targetNamespace: database-system
+  targetNamespace: labs
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/overlays/prometheus
+  path: ./apps/overlays/gitea
   prune: true
   force: true
   wait: true
