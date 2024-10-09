@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-provisioner
+spec:
+  template:
+    spec:
+      nodeSelector:
+        starsystem.dev/nfs: "true"
+      # Tolerate everything
+      tolerations:
+        - operator: Exists
+      priorityClassName: system-cluster-critical

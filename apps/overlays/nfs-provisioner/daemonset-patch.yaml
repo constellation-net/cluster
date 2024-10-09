@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nfs-provisioner
+spec:
+  template:
+    spec:
+      # Tolerate everything
+      tolerations:
+        - operator: Exists
+      priorityClassName: system-node-critical

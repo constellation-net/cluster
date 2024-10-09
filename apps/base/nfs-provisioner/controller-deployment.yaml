@@ -1,0 +1,106 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nfs-provisioner
+spec:
+  selector:
+    matchLabels:
+      app: nfs-provisioner
+      component: controller
+  template:
+    metadata:
+      labels:
+        app: nfs-provisioner
+        component: controller
+    spec:
+      serviceAccountName: nfs-provisioner
+      containers:
+        # Generic CSI provisioner controller
+        - name: csi-provisioner
+          image: registry.k8s.io/sig-storage/csi-provisioner:v5.0.2
+          args:
+            - -v=2
+            - --csi-address=$(ADDRESS)
+            - --leader-election
+            - --leader-election-namespace=kube-system
+            - --extra-create-metadata=true
+            - --feature-gates=HonorPVReclaimPolicy=true
+            - --timeout=1200s
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          resources:
+            requests:
+              cpu: 10m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 400Mi
+          volumeMounts:
+            - mountPath: /csi
+              name: socket
+
+        # Generic CSI provisioner liveness probe
+        - name: liveness-probe
+          image: registry.k8s.io/sig-storage/livenessprobe:v2.13.1
+          args:
+            - --csi-address=/csi/csi.sock
+            - --probe-timeout=3s
+            - --http-endpoint=localhost:29652
+            - --v=2
+          resources:
+            requests:
+              cpu: 10m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - name: socket
+              mountPath: /csi
+
+        # NFS controller that uses the generic CSI provisioner for provisioning NFS PVs
+        - name: nfs-controller
+          image: registry.k8s.io/sig-storage/nfsplugin:v4.9.0
+          args:
+            - -v=5
+            - --nodeid=$(NODE_ID)
+            - --endpoint=$(CSI_ENDPOINT)
+          env:
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: CSI_ENDPOINT
+              value: unix:///csi/csi.sock
+          securityContext:
+            privileged: true
+            capabilities:
+              add: 
+                - SYS_ADMIN
+          livenessProbe:
+            httpGet:
+              host: localhost
+              path: /healthz
+              port: 29652
+          resources:
+            requests:
+              cpu: 10m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: pods
+              mountPath: /var/lib/kubelet/pods
+              mountPropagation: Bidirectional
+            - name: socket
+              mountPath: /csi
+
+      volumes:
+        - name: pods
+          hostPath:
+            path: /var/lib/kubelet/pods
+            type: Directory
+        - name: socket
+          emptyDir: {}

@@ -5,254 +5,255 @@ metadata:
 rules:
   # all verbs allowed for custom operator resources
   - apiGroups:
-    - acid.zalan.do
+      - acid.zalan.do
     resources:
-    - postgresqls
-    - postgresqls/status
-    - operatorconfigurations
+      - postgresqls
+      - postgresqls/status
+      - operatorconfigurations
     verbs:
-    - create
-    - delete
-    - deletecollection
-    - get
-    - list
-    - patch
-    - update
-    - watch
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - patch
+      - update
+      - watch
 
   # operator only reads PostgresTeams
   - apiGroups:
-    - acid.zalan.do
+      - acid.zalan.do
     resources:
-    - postgresteams
+      - postgresteams
     verbs:
-    - get
-    - list
-    - watch
+      - get
+      - list
+      - watch
 
   # all verbs allowed for event streams
   - apiGroups:
-    - zalando.org
+      - zalando.org
     resources:
-    - fabriceventstreams
+      - fabriceventstreams
     verbs:
-    - create
-    - delete
-    - deletecollection
-    - get
-    - list
-    - patch
-    - update
-    - watch
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - patch
+      - update
+      - watch
 
   # to create or get/update CRDs when starting up
   - apiGroups:
-    - apiextensions.k8s.io
+      - apiextensions.k8s.io
     resources:
-    - customresourcedefinitions
+      - customresourcedefinitions
     verbs:
-    - get
-    - create
-    - patch
-    - update
+      - get
+      - create
+      - patch
+      - update
 
   # to send events to the CRs
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - events
+      - events
     verbs:
-    - create
-    - get
-    - list
-    - patch
-    - update
-    - watch
+      - create
+      - get
+      - list
+      - patch
+      - update
+      - watch
 
   # to manage endpoints/configmaps which are also used by Patroni
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - configmaps
+      - configmaps
     verbs:
-    - create
-    - delete
-    - deletecollection
-    - get
-    - list
-    - patch
-    - update
-    - watch
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - patch
+      - update
+      - watch
 
   # to read configuration from ConfigMaps
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - configmaps
+      - configmaps
     verbs:
-    - get
+      - get
+
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - endpoints
+      - endpoints
     verbs:
-    - create
-    - delete
-    - deletecollection
-    - get
-    - list
-    - patch
-    - update
-    - watch
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - patch
+      - update
+      - watch
 
   # to CRUD secrets for database access
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - secrets
+      - secrets
     verbs:
-    - create
-    - delete
-    - get
-    - patch
-    - update
+      - create
+      - delete
+      - get
+      - patch
+      - update
 
   # to check nodes for node readiness label
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - nodes
+      - nodes
     verbs:
-    - get
-    - list
-    - watch
+      - get
+      - list
+      - watch
 
   # to read or delete existing PVCs. Creation via StatefulSet
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - persistentvolumeclaims
+      - persistentvolumeclaims
     verbs:
-    - delete
-    - get
-    - list
-    - patch
-    - update
+      - delete
+      - get
+      - list
+      - patch
+      - update
 
   # to read existing PVs. Creation should be done via dynamic provisioning
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - persistentvolumes
+      - persistentvolumes
     verbs:
-    - get
-    - list
-    - update  # only for resizing AWS volumes
+      - get
+      - list
+      - update  # only for resizing AWS volumes
 
   # to watch Spilo pods and do rolling updates. Creation via StatefulSet
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - pods
+      - pods
     verbs:
-    - delete
-    - get
-    - list
-    - patch
-    - update
-    - watch
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
 
   # to resize the filesystem in Spilo pods when increasing volume size
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - pods/exec
+      - pods/exec
     verbs:
-    - create
+      - create
 
   # to CRUD services to point to Postgres cluster instances
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - services
+      - services
     verbs:
-    - create
-    - delete
-    - get
-    - patch
-    - update
-    - list
+      - create
+      - delete
+      - get
+      - patch
+      - update
+      - list
 
   # to CRUD the StatefulSet which controls the Postgres cluster instances
   - apiGroups:
-    - apps
+      - apps
     resources:
-    - statefulsets
-    - deployments
+      - statefulsets
+      - deployments
     verbs:
-    - create
-    - delete
-    - get
-    - list
-    - patch
-    - update
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
 
   # to CRUD cron jobs for logical backups
   - apiGroups:
-    - batch
+      - batch
     resources:
-    - cronjobs
+      - cronjobs
     verbs:
-    - create
-    - delete
-    - get
-    - list
-    - patch
-    - update
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
 
   # to get namespaces operator resources can run in
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - namespaces
+      - namespaces
     verbs:
-    - get
-    - list
+      - get
+      - list
 
   # to define PDBs. Update happens via delete/create
   - apiGroups:
-    - policy
+      - policy
     resources:
-    - poddisruptionbudgets
+      - poddisruptionbudgets
     verbs:
-    - create
-    - delete
-    - get
+      - create
+      - delete
+      - get
 
   # to create ServiceAccounts in each namespace the operator watches
   - apiGroups:
-    - ""
+      - ""
     resources:
-    - serviceaccounts
+      - serviceaccounts
     verbs:
-    - get
-    - create
+      - get
+      - create
 
   # to create role bindings to the postgres-pod service account
   - apiGroups:
-    - rbac.authorization.k8s.io
+      - rbac.authorization.k8s.io
     resources:
-    - rolebindings
+      - rolebindings
     verbs:
-    - get
-    - create
+      - get
+      - create
 
   # to run privileged pods
   - apiGroups:
-    - extensions
+      - extensions
     resources:
-    - podsecuritypolicies
+      - podsecuritypolicies
     resourceNames:
-    - privileged
+      - privileged
     verbs:
-    - use
+      - use

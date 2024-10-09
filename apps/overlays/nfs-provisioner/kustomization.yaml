@@ -4,10 +4,9 @@ resources:
   - ../../base/nfs-provisioner
   - storage-class.yaml
 patches:
-  - path: helmrelease-patch.yaml
+  - path: daemonset-patch.yaml
     target:
-      kind: HelmRelease
-  - path: kustomization-patch.yaml
+      kind: DaemonSet
+  - path: deployment-patch.yaml
     target:
-      version: kustomize.config.k8s.io/v1beta1
-      kind: Kustomization
+      kind: Deployment
