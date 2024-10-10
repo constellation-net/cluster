@@ -4,7 +4,6 @@ metadata:
   name: wg-portal
   namespace: flux-system
 spec:
-  suspend: true
   dependsOn:
     - name: namespaces
     - name: sealed-secrets
@@ -21,3 +20,4 @@ spec:
   prune: true
   force: true
   wait: true
+  suspend: true

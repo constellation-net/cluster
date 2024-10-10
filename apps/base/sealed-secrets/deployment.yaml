@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sealed-secrets
+spec:
+  selector:
+    matchLabels:
+      app: sealed-secrets
+  template:
+    metadata:
+      labels:
+        app: sealed-secrets
+    spec:
+      serviceAccountName: sealed-secrets
+      priorityClassName: system-cluster-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: controller
+          image: bitnami/sealed-secrets:0.27.1
+          command:
+            - controller
+          args:
+            - --update-status
+            - --key-prefix=sealed-secrets-key
+            - --listen-addr=:8080
+            - --listen-metrics-addr=:8081
+          env:
+            - name: GOMAXPROCS
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.cpu
+            - name: GOMEMLIMIT
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.memory
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: metrics
+              containerPort: 8081
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100M
+            limits:
+              cpu: 200m
+              memory: 200M
+
+      volumes:
+        - name: tmp
+          emptyDir: {}

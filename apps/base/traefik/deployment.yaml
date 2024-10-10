@@ -50,6 +50,17 @@ spec:
             - --metrics.prometheus.addEntryPointsLabels
             - --metrics.prometheus.addRoutersLabels
             - --metrics.prometheus.addServicesLabels
+          env:
+            - name: GOMAXPROCS
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.cpu
+                  divisor: '1'
+            - name: GOMEMLIMIT
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.memory
+                  divisor: '1'
           envFrom:
             - secretRef:
                 secretName: traefik

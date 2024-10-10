@@ -6,6 +6,7 @@ metadata:
 spec:
   dependsOn:
     - name: namespaces
+    - name: crds
     - name: local-provisioner
   interval: 10m0s
   timeout: 1m0s

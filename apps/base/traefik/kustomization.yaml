@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - cluster-role.yaml
   - service-account.yaml
-  - crds.yaml
   - pvc.yaml
   - deployment.yaml
   - service.yaml

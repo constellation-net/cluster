@@ -16,11 +16,18 @@ spec:
           image: wgportal/wg-portal:v2
           ports:
             - name: dashboard
-              port: 8888
+              containerPort: 8888
           securityContext:
             capabilities:
               add:
                 - NET_ADMIN
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100M
+            limits:
+              cpu: 200m
+              memory: 200M
           volumeMounts:
             - name: peers
               mountPath: /etc/wireguard
@@ -32,7 +39,7 @@ spec:
           image: lscr.io/linuxserver/wireguard:latest
           ports:
             - name: wireguard
-              port: 51820
+              containerPort: 51820
           securityContext:
             capabilities:
               add:
@@ -45,6 +52,13 @@ spec:
                 value: "1"
               - name: net.ipv4.conf.all.src_valid_mark
                 value: "1"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100M
+            limits:
+              cpu: 200m
+              memory: 200M
           env:
             - name: SERVERPORT
               value: "51820"
