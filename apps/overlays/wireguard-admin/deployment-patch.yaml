@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wireguard
+spec:
+  template:
+    spec:
+      priorityClassName: system-cluster-critical
+      nodeSelector:
+        starsystem.dev/nfs: "true"
+      tolerations:
+        - operator: Exists
