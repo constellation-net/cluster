@@ -1,9 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - crd-operator-configuration.yaml
-  - crd-team.yaml
-  - crd-cluster.yaml
   - cluster-role.yaml
   - service-account.yaml
   - pod-cluster-role.yaml
