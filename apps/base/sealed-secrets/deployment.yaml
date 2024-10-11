@@ -17,7 +17,7 @@ spec:
         - operator: Exists
       containers:
         - name: controller
-          image: docker.io/bitnami/sealed-secrets:0.27.1
+          image: docker.io/bitnami/sealed-secrets-controller:0.27.1
           command:
             - controller
           args:
