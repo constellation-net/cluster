@@ -10,6 +10,7 @@ configuration:
   major_version_upgrade:
     major_version_upgrade_mode: full
   kubernetes:
+    enable_cross_namespace_secret: true
     enable_finalizers: true
     enable_pod_antiaffinity: true # Replicas will be scheduled on different nodes
     enable_pod_disruption_budget: false
