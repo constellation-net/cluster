@@ -96,3 +96,15 @@ spec:
                     "12"
                   ]
                 }
+        - name: fake-teams-api
+          image: ikitiki/fake-teams-api:latest
+          ports:
+            - name: web
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 10m
+              memory: 10Mi
+            limits:
+              cpu: 20m
+              memory: 20Mi

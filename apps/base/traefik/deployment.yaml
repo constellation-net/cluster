@@ -63,7 +63,7 @@ spec:
                   divisor: '1'
           envFrom:
             - secretRef:
-                secretName: traefik
+                name: traefik
           ports:
             - name: web
               containerPort: 80
