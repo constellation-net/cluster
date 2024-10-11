@@ -4,6 +4,8 @@ metadata:
   name: lldap
   namespace: database-system
 spec:
+  numberOfInstances: 1
+  teamId: lldap
   users:
     database-system.lldap: []
   databases:
