@@ -27,7 +27,7 @@ configuration:
     default_memory_request: 50M
     default_cpu_limit: 200m
     default_memory_limit: 100M
-  logical_backup: # TODO
+  # logical_backup: TODO
   teams_api: # TODO configure teams and create an "internal" team for cluster dbs
     enable_teams_api: false    
   enable_crd_registration: false # CRDs handled by the repository
