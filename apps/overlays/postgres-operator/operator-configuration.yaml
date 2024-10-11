@@ -19,9 +19,9 @@ configuration:
     secret_name_template: postgres-{cluster}-credentials
     cluster_domain: cluster.starsystem.dev
     cluster_labels:
-      - app: postgres
+      app: postgres
     node_readiness_label: # Equivalent of node affinity using these labels
-      - starsystem.dev/database
+      starsystem.dev/database: "true"
   postgres_pod_resources:
     default_cpu_request: 100m
     default_memory_request: 50M
