@@ -5,7 +5,7 @@ metadata:
   namespace: database-system
 spec:
   numberOfInstances: 1
-  teamId: lldap
+  teamId: acid
   users:
     database-system.lldap: []
   databases:

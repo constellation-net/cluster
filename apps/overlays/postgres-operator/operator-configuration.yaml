@@ -30,6 +30,6 @@ configuration:
     default_memory_limit: 100M
   # logical_backup: TODO
   teams_api:
-    enable_teams_api: true
+    enable_teams_api: false
   enable_crd_registration: false # CRDs handled by the repository
   sidecars: [] # TODO: add prometheus exporter here
