@@ -19,6 +19,9 @@ spec:
             - name: api
               containerPort: 8080
               protocol: TCP
+          env:
+            - name: POSTGRES_OPERATOR_CONFIGURATION_OBJECT
+              value: postgres-operator
           resources:
             requests:
               cpu: 100m
