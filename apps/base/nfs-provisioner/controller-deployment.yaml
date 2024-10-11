@@ -14,6 +14,8 @@ spec:
         component: controller
     spec:
       serviceAccountName: nfs-provisioner
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
         # Generic CSI provisioner controller
         - name: csi-provisioner
