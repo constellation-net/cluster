@@ -17,7 +17,7 @@ configuration:
     pod_service_account_name: postgres-operator-pod
     pod_priority_class_name: system-cluster-critical
     storage_resize_mode: pvc # Resizing will be handled by the provisioner
-    secret_name_template: postgres-{cluster}-credentials
+    secret_name_template: "{cluster}-credentials"
     cluster_domain: cluster.starsystem.dev
     cluster_labels:
       app: postgres
