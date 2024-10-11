@@ -48,6 +48,9 @@ spec:
             - --probe-timeout=3s
             - --http-endpoint=localhost:29652
             - --v=2
+          ports:
+            - name: liveness
+              containerPort: 29652
           resources:
             requests:
               cpu: 10m
