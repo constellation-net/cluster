@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lldap
+spec:
+  template:
+    spec:
+      containers:
+      - name: lldap
+        env:
+          - name: LLDAP_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: postgres-lldap-credentials
+          - name: LLDAP_DATABASE_URL
+            value: postgres://lldap:$(LLDAP_DATABASE_PASSWORD)@postgres-lldap.database-system/lldap

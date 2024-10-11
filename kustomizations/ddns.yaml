@@ -4,7 +4,6 @@ metadata:
   name: ddns
   namespace: flux-system
 spec:
-  suspend: true
   dependsOn:
     - name: namespaces
     - name: sealed-secrets

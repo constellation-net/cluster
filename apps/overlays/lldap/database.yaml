@@ -1,0 +1,15 @@
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  name: lldap
+  namespace: database-system
+spec:
+  users:
+    database-system.lldap: []
+  databases:
+    lldap: lldap
+  postgresql:
+    version: "16"
+  volume:
+    size: 5Gi
+    storageClass: local

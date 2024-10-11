@@ -1,4 +1,6 @@
-#!/bin/bash
-for filename in ./secrets/*.yml; do
-    echo $(kubeseal --cert ./secrets/kubeseal.pub --secret-file ./secrets/$(basename filename).yml --format yaml --sealed-secret-file ./sealed-secrets/$(basename $filename).yml --validate)
+SECRETS=$(find . -name "secret*.yaml")
+
+for f in $SECRETS; do 
+    echo "Sealing $f"
+    kubeseal --cert http://192.168.1.99:8080/v1/cert.pem --allow-empty-data --format yaml < $f > $(dirname -- "$f")/sealed-$(basename "$f")
 done

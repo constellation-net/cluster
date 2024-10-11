@@ -9,7 +9,6 @@ spec:
     - name: local-provisioner
     - name: nfs-provisioner
     - name: postgres-operator
-  suspend: true
   interval: 10m0s
   timeout: 1m0s
   targetNamespace: labs
