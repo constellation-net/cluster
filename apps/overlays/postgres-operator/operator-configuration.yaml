@@ -30,6 +30,6 @@ configuration:
     default_memory_limit: 100M
   # logical_backup: TODO
   teams_api:
-    teams_api_url: http://postgres-operator:80
+    enable_teams_api: true
   enable_crd_registration: false # CRDs handled by the repository
   sidecars: [] # TODO: add prometheus exporter here
