@@ -38,7 +38,7 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 10
         - name: operator-ui
-          image: zalando/postgres-operator-ui:v1.13.0
+          image: ghcr.io/zalando/postgres-operator-ui:v1.13.0
           ports:
             - containerPort: 8081
               protocol: TCP
