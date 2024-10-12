@@ -4,5 +4,6 @@ resources:
   - cluster-role.yaml
   - service-account.yaml
   - pod-cluster-role.yaml
+  - pod-service-account.yaml
   - deployment.yaml
   - service.yaml
