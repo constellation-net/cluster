@@ -27,6 +27,6 @@ configuration:
   teams_api:
     enable_teams_api: false
   debug:
-    enable_debug_logging: true
+    debug_logging: true
   enable_crd_registration: false # CRDs handled by the repository
   sidecars: [] # TODO: add prometheus exporter here
