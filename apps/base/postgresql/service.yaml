@@ -3,7 +3,6 @@ kind: Service
 # TODO: prometheus annotations
 metadata:
   name: postgres
-  namespace: database-system
   labels:
     app: postgres
 spec:
