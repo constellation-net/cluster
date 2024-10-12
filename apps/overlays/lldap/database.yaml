@@ -1,17 +1,7 @@
-apiVersion: acid.zalan.do/v1
-kind: postgresql
-metadata:
-  name: postgres-lldap
-  namespace: database-system
-spec:
-  numberOfInstances: 1
-  teamId: lldap
-  users:
-    database-system.lldap: []
-  databases:
-    lldap: lldap
-  postgresql:
-    version: "16"
-  volume:
-    size: 5Gi
-    storageClass: local
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/postgresql
+nameSuffix: lldap
+commonLabels:
+  database: lldap
