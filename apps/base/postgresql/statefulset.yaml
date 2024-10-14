@@ -14,14 +14,6 @@ spec:
       containers:
         - name: postgres
           image: postgres:17
-          env:
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-          envFrom:
-            - secretRef:
-                name: $(POD_NAME)
           ports:
             - name: postgres
               containerPort: 5432
