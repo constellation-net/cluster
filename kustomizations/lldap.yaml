@@ -6,7 +6,8 @@ metadata:
 spec:
   dependsOn:
     - name: namespaces
-    - name: postgres-lldap
+    - name: sealed-secrets
+    - name: local-provisioner
   interval: 10m0s
   timeout: 1m0s
   targetNamespace: database-system
