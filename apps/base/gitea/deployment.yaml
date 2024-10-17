@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: gitea
-          image: gitea/gitea:latest-rootless
+          image: gitea/gitea:latest
           ports:
             - name: web
               containerPort: 3000
@@ -51,6 +51,7 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: gitea-config
+
 # TODO: email support
 # TODO: traefik route
 # TODO: LDAP integration
