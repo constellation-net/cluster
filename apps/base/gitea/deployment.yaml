@@ -21,7 +21,7 @@ spec:
               containerPort: 2222
           envFrom:
             - secretRef:
-                name: gitea-postgres
+                name: gitea
           resources:
             requests:
               cpu: 200m
