@@ -1,14 +1,58 @@
-apiVersion: acid.zalan.do/v1
-kind: postgresql
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: gitea
+  name: postgres-gitea
 spec:
-  users:
-    gitea: []
-  databases:
-    gitea: gitea
-  postgresql:
-    version: "16"
-  volume:
-    size: 1Gi
-    storageClass: local
+  selector:
+    matchLabels:
+      app: postgres
+      database: gitea
+  template:
+    metadata:
+      labels:
+        app: postgres
+        database: gitea
+    spec:
+      nodeSelector:
+        starsystem.dev/database: "true"
+      containers:
+        - name: postgres
+          image: postgres:17
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: postgres-gitea
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+        # TODO: prometheus exporter
+
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: postgres-gitea
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-gitea
+  # TODO: annotations for prometheus exporter
+spec:
+  selector:
+    app: postgres
+    database: gitea
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
