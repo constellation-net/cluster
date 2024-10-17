@@ -71,7 +71,7 @@ spec:
             - -v=5
             - --nodeid=$(NODE_ID)
             - --endpoint=$(CSI_ENDPOINT)
-            - --drivername=nfs.provisioner.starsystem.dev
+            - --drivername=nfs.csi.k8s.io
             - --mount-permissions=0
             - --working-mount-dir=/tmp
             - --default-ondelete-policy=retain
