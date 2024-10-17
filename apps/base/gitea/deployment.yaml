@@ -43,12 +43,7 @@ spec:
               mountPath: /var/lib/gitea
             - name: config
               mountPath: /etc/gitea
-            - name: timezone
-              mountPath: /etc/timezone
-              readOnly: true
-            - name: localtime
-              mountPath: /etc/localtime
-              readOnly: true
+
       volumes:
         - name: data
           persistentVolumeClaim:
@@ -56,12 +51,6 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: gitea-config
-        - name: timezone
-          hostPath:
-            path: /etc/timezone
-        - name: localtime
-          hostPath:
-            path: /etc/localtime
 # TODO: email support
 # TODO: traefik route
 # TODO: LDAP integration
