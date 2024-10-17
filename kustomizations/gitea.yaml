@@ -9,6 +9,7 @@ spec:
     - name: sealed-secrets
     - name: local-provisioner
     - name: nfs-provisioner
+    - name: postgres-gitea
   interval: 10m0s
   timeout: 1m0s
   targetNamespace: labs

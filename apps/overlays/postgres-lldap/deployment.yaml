@@ -1,18 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-gitea
-  namespace: database-system
+  name: postgres-lldap
 spec:
   selector:
     matchLabels:
       app: postgres
-      database: gitea
+      database: lldap
   template:
     metadata:
       labels:
         app: postgres
-        database: gitea
+        database: lldap
     spec:
       nodeSelector:
         starsystem.dev/database: "true"
@@ -25,7 +24,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: postgres-gitea
+                name: postgres-lldap
           resources:
             requests:
               cpu: 100m
@@ -41,20 +40,4 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: postgres-gitea
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres-gitea
-  namespace: database-system
-  # TODO: annotations for prometheus exporter
-spec:
-  selector:
-    app: postgres
-    database: gitea
-  ports:
-    - name: postgres
-      port: 5432
-      targetPort: 5432
-      protocol: TCP
+            claimName: postgres-lldap
