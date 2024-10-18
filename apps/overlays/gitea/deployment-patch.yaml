@@ -12,5 +12,5 @@ spec:
             - -c
           args: 
             - |
-              gitea admin auth add-ldap --name=lldap --host=lldap.database-system --port=3890 --security-protocol=unencrypted --bind-dn="cn=gitea,dc=starsystem,dc=dev" --bind-password=cupkar-xUhrit-hixme9 --user-search-base="ou=people,dc=starsystem,cd=dev" --user-filter="(&(objectClass=person)(|(user_id=%[1]s)(mail=%[1]s)))" --admin-filter="(memberOf=cn=gitea_admin,ou=groups,dc=starsystem,dc=dev)" --username-attribute=user_id --firstname-attribute=first_name --surname-attribute=last_name --email-attribute=mail --avatar-attribute=avatar --synchronize-users=true -c /data/gitea/conf/app.ini
+              gitea admin auth add-ldap --name=lldap --host=lldap.database-system --port=3890 --security-protocol=unencrypted --bind-dn="cn=gitea,dc=starsystem,dc=dev" --bind-password=cupkar-xUhrit-hixme9 --user-search-base="ou=people,dc=starsystem,cd=dev" --user-filter="(&(objectClass=person)(|(user_id=%[1]s)(mail=%[1]s)))" --admin-filter="(memberOf=cn=gitea_admin,ou=groups,dc=starsystem,dc=dev)" --username-attribute=user_id --firstname-attribute=first_name --surname-attribute=last_name --email-attribute=mail --avatar-attribute=avatar --synchronize-users=true --config=/data/gitea/conf/app.ini
               gitea web -c /data/gitea/conf/app.ini
