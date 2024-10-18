@@ -19,6 +19,11 @@ spec:
       targetPort: 8080
       protocol: TCP
 
+    - name: ssh
+      port: 22
+      targetPort: 22
+      protocol: TCP
+
     - name: dns-udp
       port: 53
       targetPort: 53

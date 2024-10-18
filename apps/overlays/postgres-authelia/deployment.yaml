@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-authelia
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+      database: authelia
+  template:
+    metadata:
+      labels:
+        app: postgres
+        database: authelia
+    spec:
+      nodeSelector:
+        starsystem.dev/database: "true"
+      containers:
+        - name: postgres
+          image: postgres:17
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: postgres-authelia
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+        # TODO: prometheus exporter
+
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: postgres-authelia

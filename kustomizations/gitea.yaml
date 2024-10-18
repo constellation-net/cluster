@@ -6,6 +6,7 @@ metadata:
 spec:
   dependsOn:
     - name: namespaces
+    - name: crds
     - name: sealed-secrets
     - name: local-provisioner
     - name: nfs-provisioner

@@ -7,6 +7,7 @@ spec:
   suspend: true
   dependsOn:
     - name: namespaces
+    - name: crds
     - name: sealed-secrets
     - name: nfs-provisioner
     - name: traefik
