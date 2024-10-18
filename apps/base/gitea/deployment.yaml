@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: gitea
-          image: gitea/gitea:latest
+          image: gitea/gitea:latest-rootless
           envFrom:
             - secretRef:
                 name: gitea
