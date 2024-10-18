@@ -16,4 +16,10 @@ spec:
                 command:
                   - /bin/sh
                   - -c
-                  - sleep 30 && touch /log/poststart.log && gitea admin auth add-ldap --name lldap --host lldap.database-system --port 3890 --bind-dn "cn=gitea,dc=starsystem,dc=dev" --bind-password cupkar-xUhrit-hixme9 --user-search-base "ou=people,dc=starsystem,cd=dev" --user-filter "(&(objectClass=person)(|(user_id=%[1]s)(mail=%[1]s)))" --admin-filter "(memberOf=cn=gitea_admin,ou=groups,dc=starsystem,dc=dev)" --username-attribute user_id --first-name-attribute first_name --last-name-attribute last_name --email-attribute mail > /log/poststart.log 2>&1
+                  - \"sleep 30\";
+                  - /bin/sh
+                  - -c
+                  - \"touch /log/poststart.log\";
+                  - /bin/sh
+                  - -c
+                  - \"gitea admin auth add-ldap --name lldap --host lldap.database-system --port 3890 --bind-dn cn=gitea,dc=starsystem,dc=dev --bind-password cupkar-xUhrit-hixme9 --user-search-base ou=people,dc=starsystem,cd=dev --user-filter (&(objectClass=person)(|(user_id=%[1]s)(mail=%[1]s))) --admin-filter (memberOf=cn=gitea_admin,ou=groups,dc=starsystem,dc=dev) --username-attribute user_id --first-name-attribute first_name --last-name-attribute last_name --email-attribute mail > /log/poststart.log 2>&1\"
