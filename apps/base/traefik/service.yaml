@@ -5,7 +5,7 @@ metadata:
   labels:
     app: traefik
   annotations:
-    kube-vip.io/loadbalancerIPs: "192.168.1.99"
+    kube-vip.io/loadbalancerIPs: "192.168.1.119"
     prometheus.cluster.starsystem.dev/scrape: "true"
     prometheus.cluster.starsystem.dev/scheme: http
     prometheus.cluster.starsystem.dev/path: /metrics
@@ -13,7 +13,7 @@ metadata:
 spec:
   selector:
     app: traefik
-  loadBalancerIP: 192.168.1.99
+  loadBalancerIP: 192.168.1.119
   type: LoadBalancer
   ports:
     - name: web
@@ -29,19 +29,3 @@ spec:
       port: 8080
       targetPort: 8080
       protocol: TCP
-    - name: dns-udp
-      port: 53
-      targetPort: 53
-      protocol: UDP
-    - name: dns-tcp
-      port: 53
-      targetPort: 53
-      protocol: TCP
-    - name: minecraft
-      port: 25565
-      targetPort: 25565
-      protocol: TCP
-    - name: wireguard
-      port: 51820
-      targetPort: 51820
-      protocol: UDP

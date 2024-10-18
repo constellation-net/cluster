@@ -33,20 +33,10 @@ spec:
             - --entrypoints.web.http.redirections.entrypoint.scheme=https
             - --entrypoints.websecure.address=:443
             - --entrypoints.websecure.http.tls.certresolver=letsencrypt
-            - --entrypoints.websecure.http.tls.domains[0].main=starsystem.dev
-            - --entrypoints.websecure.http.tls.domains[0].sans=*.starsystem.dev,*.cluster.starsystem.dev
             - --entrypoints.websecure.forwardedheaders.insecure=false
             - --entrypoints.websecure.forwardedheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
             - --entrypoints.websecure.proxyprotocol.insecure=false
             - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
-            - --entrypoints.websecure.http.middlewares=network-system-traefik-cors # Automatically responds to CORS requests for proxied services
-            - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
-            - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
-            - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
-            - --entrypoints.dns-tcp.address=:53/tcp
-            - --entrypoints.dns-udp.address=:53/udp
-            - --entrypoints.minecraft.address=:25565
-            - --entrypoints.wireguard.address=:51820/udp
             - --metrics.prometheus.addEntryPointsLabels
             - --metrics.prometheus.addRoutersLabels
             - --metrics.prometheus.addServicesLabels
@@ -61,9 +51,6 @@ spec:
                 resourceFieldRef:
                   resource: limits.memory
                   divisor: '1'
-          envFrom:
-            - secretRef:
-                name: traefik
           ports:
             - name: web
               containerPort: 80
@@ -74,18 +61,6 @@ spec:
             - name: traefik
               containerPort: 8080
               protocol: TCP
-            - name: dns-udp
-              containerPort: 53
-              protocol: UDP
-            - name: dns-tcp
-              containerPort: 53
-              protocol: TCP
-            - name: minecraft
-              containerPort: 25565
-              protocol: TCP
-            - name: wireguard
-              containerPort: 51820
-              protocol: UDP
           resources:
             requests:
               cpu: 500m
@@ -104,6 +79,7 @@ spec:
           volumeMounts:
             - name: certs
               mountPath: /data
+
       volumes:
         - name: certs
           persistentVolumeClaim:

@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: 80
+      protocol: TCP
+
+    - name: websecure
+      port: 443
+      targetPort: 443
+      protocol: TCP
+
+    - name: traefik
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+
+    - name: dns-udp
+      port: 53
+      targetPort: 53
+      protocol: UDP
+
+    - name: dns-tcp
+      port: 53
+      targetPort: 53
+      protocol: TCP
+
+    - name: satisfactory
+      port: 7777
+      targetPort: 7777
+      protocol: TCP
+
+    - name: minecraft
+      port: 25565
+      targetPort: 25565
+      protocol: TCP
+
+    - name: wireguard
+      port: 51820
+      targetPort: 51820
+      protocol: UDP
