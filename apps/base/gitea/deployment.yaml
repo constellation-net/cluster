@@ -14,9 +14,9 @@ spec:
       containers:
         - name: gitea
           image: gitea/gitea:latest
-          args:
-            - --config
-            - /custom/app.ini
+          env:
+            - name: GITEA_CUSTOM
+              value: /custom
           ports:
             - name: web
               containerPort: 3000
@@ -44,7 +44,7 @@ spec:
             - name: config
               mountPath: /data
             - name: secrets
-              mountPath: /custom/app.ini
+              mountPath: /custom/conf/app.ini
               subPath: app.ini
               readOnly: true
 
