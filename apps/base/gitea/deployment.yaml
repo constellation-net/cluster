@@ -14,6 +14,9 @@ spec:
       containers:
         - name: gitea
           image: gitea/gitea:latest
+          args:
+            - --config
+            - /custom/app.ini
           ports:
             - name: web
               containerPort: 3000
@@ -39,9 +42,9 @@ spec:
             - name: data
               mountPath: /var/lib/gitea
             - name: config
-              mountPath: /etc/gitea
+              mountPath: /data
             - name: secrets
-              mountPath: /data/gitea/conf
+              mountPath: /custom/app.ini
               subPath: app.ini
               readOnly: true
 
