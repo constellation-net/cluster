@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - pvcs.yaml
   - sealed-secret.yaml
+  - ingress-route.yaml
   - ../../base/gitea

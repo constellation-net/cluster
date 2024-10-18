@@ -19,9 +19,6 @@ spec:
               containerPort: 3000
             - name: ssh
               containerPort: 2222
-          envFrom:
-            - secretRef:
-                name: gitea
           resources:
             requests:
               cpu: 200m
@@ -43,6 +40,10 @@ spec:
               mountPath: /var/lib/gitea
             - name: config
               mountPath: /etc/gitea
+            - name: secrets
+              mountPath: /data/gitea/conf
+              subPath: app.ini
+              readOnly: true
 
       volumes:
         - name: data
@@ -51,6 +52,9 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: gitea-config
+        - name: secrets
+          secret:
+            secretName: gitea
 
 # TODO: email support
 # TODO: traefik route
