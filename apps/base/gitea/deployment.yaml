@@ -14,9 +14,9 @@ spec:
       containers:
         - name: gitea
           image: gitea/gitea:latest
-          env:
-            - name: GITEA_CUSTOM
-              value: /custom
+          envFrom:
+            - secretRef:
+                name: gitea
           ports:
             - name: web
               containerPort: 3000
@@ -43,10 +43,6 @@ spec:
               mountPath: /var/lib/gitea
             - name: config
               mountPath: /data
-            - name: secrets
-              mountPath: /custom/conf/app.ini
-              subPath: app.ini
-              readOnly: true
 
       volumes:
         - name: data
@@ -55,9 +51,6 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: gitea-config
-        - name: secrets
-          secret:
-            secretName: gitea
 
 # TODO: email support
 # TODO: traefik route
