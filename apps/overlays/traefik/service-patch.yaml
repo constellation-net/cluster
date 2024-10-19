@@ -34,6 +34,11 @@ spec:
       targetPort: 53
       protocol: TCP
 
+    - name: ldap
+      port: 389
+      targetPort: 389
+      protocol: TCP
+
     - name: satisfactory
       port: 7777
       targetPort: 7777

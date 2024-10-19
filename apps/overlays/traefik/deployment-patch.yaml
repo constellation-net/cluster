@@ -49,6 +49,7 @@ spec:
             - --entrypoints.ssh.address=:22/tcp
             - --entrypoints.dns-tcp.address=:53/tcp
             - --entrypoints.dns-udp.address=:53/udp
+            - --entrypoints.ldap.address=:389
             - --entrypoints.satisfactory.address=:7777
             - --entrypoints.minecraft.address=:25565
             - --entrypoints.wireguard.address=:51820/udp
@@ -81,6 +82,10 @@ spec:
 
             - name: dns-tcp
               containerPort: 53
+              protocol: TCP
+
+            - name: ldap
+              containerPort: 389
               protocol: TCP
 
             - name: satisfactory
