@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: wg-portal
+  name: wgportal
   labels:
-    app: wg-portal
+    app: wgportal
 spec:
   selector:
-    app: wg-portal
+    app: wgportal
   ports:
     - name: wireguard
       port: 51820

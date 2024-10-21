@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wg-portal
+  name: wgportal
 spec:
   selector:
     matchLabels:
-      app: wg-portal
+      app: wgportal
   template:
     metadata:
       labels:
-        app: wg-portal
+        app: wgportal
     spec:
       containers:
-        - name: wg-portal
+        - name: wgportal
           image: wgportal/wg-portal:v2
           ports:
             - name: dashboard
@@ -82,7 +82,7 @@ spec:
       volumes:
         - name: peers
           persistentVolumeClaim:
-            claimName: wg-portal
+            claimName: wgportal
             readOnly: false
         # Needed to properly load iptables
         - name: kernel

@@ -1,0 +1,23 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: wgportal
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: namespaces
+    - name: crds
+    - name: sealed-secrets
+    - name: traefik
+    - name: nfs-provisioner
+    - name: postgres-operator
+  interval: 10m0s
+  timeout: 1m0s
+  targetNamespace: network-system
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/overlays/wgportal
+  prune: true
+  force: true
+  wait: true
