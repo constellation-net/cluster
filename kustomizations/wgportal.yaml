@@ -10,7 +10,7 @@ spec:
     - name: sealed-secrets
     - name: traefik
     - name: nfs-provisioner
-    - name: postgres-operator
+    - name: postgres-wgportal
   interval: 10m0s
   timeout: 1m0s
   targetNamespace: network-system
