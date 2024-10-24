@@ -4,7 +4,6 @@ metadata:
   name: homarr
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`home.starsystem.dev`)

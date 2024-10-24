@@ -4,7 +4,6 @@ metadata:
   name: lldap-dashboard
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`users.starsystem.dev`)

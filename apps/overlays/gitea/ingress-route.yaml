@@ -4,7 +4,6 @@ metadata:
   name: gitea-dashboard
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`git.starsystem.dev`)
