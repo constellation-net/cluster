@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wgportal
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`vpn.cluster.starsystem.dev`)
+      kind: Rule
+      services:
+        - name: wgportal
+          port: 8888
+# ---
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRouteUDP
+# metadata:
+#   name: wireguard-vpn
+# spec:
+#   entryPoints:
+#     - wireguard
+#   routes:
+#     - services:
+#         - name: wgportal
+#           port: 51820
