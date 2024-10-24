@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - sealed-secret.yaml
   - config-map.yaml
+  - pvc.yaml
   - ../../base/wgportal
   - ingress-routes.yaml
 patches:
