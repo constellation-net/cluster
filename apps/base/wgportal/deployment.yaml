@@ -33,7 +33,7 @@ spec:
               mountPath: /etc/wireguard
               readOnly: false
             - name: config
-              mountPath: /app/config/config.yml
+              mountPath: /app/config
               readOnly: true
               subPath: config.yml
         - name: wireguard
