@@ -33,8 +33,7 @@ spec:
               mountPath: /etc/wireguard
               readOnly: false
             - name: config
-              mountPath: /app/config
-              readOnly: true
+              mountPath: /app/config/config.yml
               subPath: config.yml
         - name: wireguard
           image: lscr.io/linuxserver/wireguard:latest
@@ -86,8 +85,8 @@ spec:
             claimName: wgportal
             readOnly: false
         - name: config
-          configMap:
-            name: wgportal
+          secret:
+            secretName: wgportal
         # Needed to properly load iptables
         - name: kernel
           hostPath:
