@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: wgportal
-          image: wgportal/wg-portal:v2
+          image: wgportal/wg-portal:latest
           ports:
             - name: dashboard
               containerPort: 8888
