@@ -17,10 +17,10 @@ spec:
           ports:
             - name: dashboard
               containerPort: 8888
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
+          # securityContext:
+          #   capabilities:
+          #     add:
+          #       - NET_ADMIN
           resources:
             requests:
               cpu: 100m
@@ -31,7 +31,6 @@ spec:
           volumeMounts:
             - name: peers
               mountPath: /etc/wireguard
-              readOnly: false
             - name: config
               mountPath: /app/config/config.yml
               subPath: config.yml
@@ -71,7 +70,7 @@ spec:
             - name: TZ
               value: Europe/London
             - name: ALLOWEDIPS
-              value: 0.0.0.0/0,::/0,192.168.1.2/32
+              value: 0.0.0.0/0,::/0,192.168.1.0/32
           volumeMounts:
             - name: kernel
               mountPath: /lib/modules
@@ -83,7 +82,6 @@ spec:
         - name: peers
           persistentVolumeClaim:
             claimName: wgportal
-            readOnly: false
         - name: config
           secret:
             secretName: wgportal
