@@ -11,16 +11,17 @@ spec:
       labels:
         app: wgportal
     spec:
+      dnsPolicy: ClusterFirst
       containers:
         - name: wgportal
           image: wgportal/wg-portal:latest
           ports:
             - name: dashboard
               containerPort: 8888
-          # securityContext:
-          #   capabilities:
-          #     add:
-          #       - NET_ADMIN
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
           resources:
             requests:
               cpu: 100m
