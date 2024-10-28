@@ -11,6 +11,7 @@ spec:
       labels:
         app: wgportal
     spec:
+      hostNetwork: true
       containers:
         - name: wgportal
           image: wgportal/wg-portal:latest
@@ -20,7 +21,6 @@ spec:
             - name: metrics
               containerPort: 8787
           securityContext:
-            privileged: true
             capabilities:
               add:
                 - NET_ADMIN
