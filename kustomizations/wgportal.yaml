@@ -21,3 +21,4 @@ spec:
   prune: true
   force: true
   wait: true
+  suspend: true
