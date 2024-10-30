@@ -31,7 +31,7 @@ spec:
               value: Europe/London
           envFrom:
             - secretRef:
-                secretName: pihole
+                name: pihole
           resources:
             requests:
               cpu: 250m
@@ -58,7 +58,7 @@ spec:
               value: "9617"
           envFrom:
             - secretRef:
-                secretName: pihole-exporter
+                name: pihole-exporter
           resources:
             requests:
               cpu: 100m
