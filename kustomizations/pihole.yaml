@@ -9,7 +9,6 @@ spec:
     - name: crds
     - name: sealed-secrets
     - name: nfs-provisioner
-    - name: traefik
   interval: 10m0s
   timeout: 1m0s
   targetNamespace: network-system

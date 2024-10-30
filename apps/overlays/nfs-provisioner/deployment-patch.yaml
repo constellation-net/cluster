@@ -11,3 +11,25 @@ spec:
       tolerations:
         - operator: Exists
       priorityClassName: system-cluster-critical
+      containers:
+        - name: csi-provisioner
+          resources:
+            requests:
+              cpu: 10m
+              memory: 25Mi
+            limits:
+              memory: 25Mi
+        - name: liveness-probe
+          resources:
+            requests:
+              cpu: 10m
+              memory: 25Mi
+            limits:
+              memory: 25Mi
+        - name: nfs-controller
+          resources:
+            requests:
+              cpu: 10m
+              memory: 25Mi
+            limits:
+              memory: 25Mi

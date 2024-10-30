@@ -61,13 +61,6 @@ spec:
             - name: traefik
               containerPort: 8080
               protocol: TCP
-          resources:
-            requests:
-              cpu: 500m
-              memory: 100M 
-            limits:
-              cpu: "1"
-              memory: 200M
           livenessProbe:
             httpGet:
               path: /ping
@@ -76,12 +69,3 @@ spec:
             httpGet:
               path: /ping
               port: 8080
-          volumeMounts:
-            - name: certs
-              mountPath: /data
-
-      volumes:
-        - name: certs
-          persistentVolumeClaim:
-            claimName: traefik
-            readOnly: false

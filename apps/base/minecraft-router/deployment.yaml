@@ -18,10 +18,3 @@ spec:
           ports:
             - name: minecraft
               containerPort: 25565
-          resources:
-            requests:
-              cpu: 100m
-              memory: 50M
-            limits:
-              cpu: 200m
-              memory: 100M

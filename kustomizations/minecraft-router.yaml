@@ -4,11 +4,9 @@ metadata:
   name: minecraft-router
   namespace: flux-system
 spec:
-  suspend: true
   dependsOn:
     - name: namespaces
     - name: crds
-    - name: traefik
   interval: 10m0s
   timeout: 1m0s
   targetNamespace: games

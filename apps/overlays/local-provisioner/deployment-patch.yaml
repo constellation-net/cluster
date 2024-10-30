@@ -6,3 +6,34 @@ spec:
   template:
     spec:
       priorityClassName: system-cluster-critical
+      containers:
+        - name: path-provisioner
+          command:
+            - local-path-provisioner
+            - --debug
+            - start
+            - --config
+            - /etc/config/config.json
+            - --service-account-name
+            - local-provisioner
+            - --helper-pod-file
+            - /etc/config/helperPod.yaml
+            - --helper-image
+            - busybox:latest
+            - --provisioner-name
+            - provisioner.starsystem.dev/local
+            - --configmap-name
+            - local-provisioner
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50M 
+            limits:
+              memory: 50M
+          volumeMounts:
+            - name: config
+              mountPath: /etc/config
+      volumes:
+        - name: config
+          configMap:
+            name: local-provisioner

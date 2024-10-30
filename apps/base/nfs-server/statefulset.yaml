@@ -3,9 +3,6 @@ kind: StatefulSet
 metadata:
   name: nfs-server
 spec:
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Delete
-    whenScaled: Delete
   serviceName: nfs-server-headless
   selector:
     matchLabels:
@@ -23,28 +20,3 @@ spec:
           ports:
             - name: nfsv4
               containerPort: 2049
-          env:
-            # Waits for changes to be commited before replying to requests
-            # Not as fast as async mode, but avoids data corruption due to a sudden crash
-            - name: SYNC
-              value: "true"
-            - name: SHARED_DIRECTORY
-              value: /export
-          resources:
-            requests:
-              cpu: 100m
-              memory: 100M
-            # Adding limits here causes problems, turns out containerd doesn't let you have CPU limits on privileged containers
-          volumeMounts:
-            - name: data
-              mountPath: /export
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 5Gi
-        storageClassName: ""

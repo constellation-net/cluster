@@ -3,3 +3,7 @@ kind: Kustomization
 resources:
   - config-map.yaml
   - ../../base/kube-vip
+patches:
+  - path: daemonset-patch.yaml
+    target:
+      kind: DaemonSet

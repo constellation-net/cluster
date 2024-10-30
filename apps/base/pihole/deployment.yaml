@@ -24,24 +24,6 @@ spec:
             - name: dashboard
               containerPort: 80
               protocol: TCP
-          env:
-            - name: DNSMASQ_LISTENING
-              value: all
-            - name: TZ
-              value: Europe/London
-          envFrom:
-            - secretRef:
-                name: pihole
-          resources:
-            requests:
-              cpu: 250m
-              memory: 50M 
-            limits:
-              cpu: 500m
-              memory: 100M
-          volumeMounts:
-            - name: data
-              mountPath: /etc
         - name: prometheus
           image: ekofr/pihole-exporter:latest
           ports:
@@ -56,17 +38,3 @@ spec:
               value: http
             - name: PORT
               value: "9617"
-          envFrom:
-            - secretRef:
-                name: pihole-exporter
-          resources:
-            requests:
-              cpu: 100m
-              memory: 50M 
-            limits:
-              cpu: 200m
-              memory: 100M
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: pihole

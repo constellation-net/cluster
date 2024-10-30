@@ -5,3 +5,7 @@ resources:
   - pvcs.yaml
   - ingress-route.yaml
   - ../../base/homarr
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment

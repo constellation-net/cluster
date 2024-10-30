@@ -6,8 +6,8 @@ metadata:
 spec:
   dependsOn:
     - name: namespaces
-    - name: sealed-secrets
     - name: crds
+    - name: sealed-secrets
     - name: nfs-provisioner
     - name: lldap
   interval: 10m0s

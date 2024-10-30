@@ -4,5 +4,5 @@ resources:
   - csi-driver.yaml
   - cluster-role.yaml
   - service-account.yaml
-  - controller-deployment.yaml
-  - node-daemonset.yaml
+  - deployment.yaml
+  - daemonset.yaml

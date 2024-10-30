@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: nfs-provisioner
+  name: nfs-provisioner-controller
 spec:
   selector:
     matchLabels:
@@ -31,17 +31,9 @@ spec:
           env:
             - name: ADDRESS
               value: /csi/csi.sock
-          resources:
-            requests:
-              cpu: 10m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 400Mi
           volumeMounts:
             - mountPath: /csi
               name: socket
-
         # Generic CSI provisioner liveness probe
         - name: liveness-probe
           image: registry.k8s.io/sig-storage/livenessprobe:v2.13.1
@@ -53,17 +45,9 @@ spec:
           ports:
             - name: liveness
               containerPort: 29652
-          resources:
-            requests:
-              cpu: 10m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 100Mi
           volumeMounts:
             - name: socket
               mountPath: /csi
-
         # NFS controller that uses the generic CSI provisioner for provisioning NFS PVs
         - name: nfs-controller
           image: registry.k8s.io/sig-storage/nfsplugin:v4.9.0
@@ -92,20 +76,12 @@ spec:
               host: localhost
               path: /healthz
               port: 29652
-          resources:
-            requests:
-              cpu: 10m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 200Mi
           volumeMounts:
             - name: pods
               mountPath: /var/lib/kubelet/pods
               mountPropagation: Bidirectional
             - name: socket
               mountPath: /csi
-
       volumes:
         - name: pods
           hostPath:

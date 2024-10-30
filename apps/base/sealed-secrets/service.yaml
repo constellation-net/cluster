@@ -5,7 +5,7 @@ metadata:
   labels:
     app: sealed-secrets
   annotations:
-    kube-vip.io/loadbalancerIPs: "192.168.1.99"
+    kube-vip.io/loadbalancerIPs: "192.168.1.118"
     prometheus.cluster.starsystem.dev/scrape: "true"
     prometheus.cluster.starsystem.dev/scheme: http
     prometheus.cluster.starsystem.dev/path: /metrics
@@ -14,7 +14,7 @@ spec:
   selector:
     app: sealed-secrets
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.99
+  loadBalancerIP: 192.168.1.118
   ports:
     - name: cert
       port: 8080

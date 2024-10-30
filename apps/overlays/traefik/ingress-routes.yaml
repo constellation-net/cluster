@@ -11,5 +11,4 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
-#      middlewares:
-#        - name: authelia@kubernetescrd
+      # Traefik's dashboard only shows information, which is publicly available via the repo, so it doesn't need to be secure

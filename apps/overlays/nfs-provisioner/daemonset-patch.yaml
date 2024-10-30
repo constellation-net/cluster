@@ -9,3 +9,25 @@ spec:
       tolerations:
         - operator: Exists
       priorityClassName: system-node-critical
+      containers:
+        - name: liveness-probe
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              memory: 50Mi
+        - name: driver-registrar
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              memory: 50Mi
+        - name: nfs-provisioner
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              memory: 50Mi

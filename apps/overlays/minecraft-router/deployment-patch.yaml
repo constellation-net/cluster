@@ -16,3 +16,9 @@ spec:
           args:
             - --in-kube-cluster # Enables kubernetes service discovery
             - --metrics-backend=discard # One of discard, expvar or influxdb
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50M
+            limits:
+              memory: 50M

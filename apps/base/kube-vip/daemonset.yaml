@@ -11,26 +11,8 @@ spec:
       labels:
         app: kube-vip
     spec:
-      priorityClassName: system-cluster-critical
       hostNetwork: true
       serviceAccountName: kube-vip
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                - key: node-role.kubernetes.io/master
-                  operator: Exists
-              - matchExpressions:
-                - key: node-role.kubernetes.io/control-plane
-                  operator: Exists
-      tolerations:
-        - effect: NoSchedule
-          operator: Exists
-        - effect: PreferNoSchedule
-          operator: Exists
-        - effect: NoExecute
-          operator: Exists
       containers:
         - name: kubevip
           image: ghcr.io/kube-vip/kube-vip:v0.4.0
@@ -42,13 +24,3 @@ spec:
                 - SYS_TIME
           args:
             - manager
-          envFrom:
-            - configMapRef:
-                name: kube-vip
-          resources:
-            requests:
-              cpu: 250m
-              memory: 100M 
-            limits:
-              cpu: 500m
-              memory: 200M

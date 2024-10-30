@@ -23,12 +23,8 @@ spec:
             - /etc/config/config.json
             - --service-account-name
             - local-provisioner
-            - --provisioner-name
-            - provisioner.starsystem.dev/local
             - --helper-image
             - busybox:latest
-            - --configmap-name
-            - local-provisioner
             - --helper-pod-file
             - /etc/config/helperPod.yaml
           env:
@@ -38,17 +34,3 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-          resources:
-            requests:
-              cpu: 100m
-              memory: 50M 
-            limits:
-              cpu: 200m
-              memory: 100M
-          volumeMounts:
-            - name: config
-              mountPath: /etc/config
-      volumes:
-        - name: config
-          configMap:
-            name: local-provisioner

@@ -3,9 +3,6 @@ kind: StatefulSet
 metadata:
   name: prometheus
 spec:
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Delete
-    whenScaled: Delete
   serviceName: prometheus-headless
   selector:
     matchLabels:
@@ -22,29 +19,3 @@ spec:
             - name: prometheus
               containerPort: 9090
               protocol: TCP
-          resources:
-            requests:
-              cpu: 200m
-              memory: 200Mi
-            limits:
-              cpu: 600m
-              memory: 600Mi
-          volumeMounts:
-            - name: data
-              mountPath: /prometheus
-            - name: config
-              mountPath: /etc/prometheus
-      volumes:
-        - name: config
-          configMap:
-            name: prometheus
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 5Gi
-        storageClassName: ""

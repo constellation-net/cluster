@@ -4,6 +4,8 @@ resources:
   - sealed-secrets.yaml
   - pvc.yaml
   - ../../base/pihole
+  - middleware.yaml
+  - ingress-routes.yaml
 patches:
   - path: deployment-patch.yaml
     target:

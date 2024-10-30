@@ -1,7 +1,7 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: nfs-provisioner
+  name: nfs-provisioner-node
 spec:
   selector:
     matchLabels:
@@ -28,17 +28,9 @@ spec:
           ports:
             - name: liveness
               containerPort: 29653
-          resources:
-            requests:
-              cpu: 10m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 100Mi
           volumeMounts:
             - name: socket
               mountPath: /csi
-
         # Generic CSI node driver registrar
         - name: driver-registrar
           image: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.11.1
@@ -61,19 +53,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-          resources:
-            requests:
-              cpu: 10m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 100Mi
           volumeMounts:
             - name: socket
               mountPath: /csi
             - name: registration
               mountPath: /registration
-
         # NFS controller
         - name: nfs-provisioner
           image: registry.k8s.io/sig-storage/nfsplugin:v4.9.0
@@ -101,20 +85,12 @@ spec:
               port: 29653
             timeoutSeconds: 10
             periodSeconds: 30
-          resources:
-            requests:
-              cpu: 10m
-              memory: 20Mi
-            limits:
-              cpu: 100m
-              memory: 300Mi
           volumeMounts:
             - name: socket
               mountPath: /csi
             - name: pods
               mountPath: /var/lib/kubelet/pods
               mountPropagation: Bidirectional
-
       volumes:
         - name: socket
           hostPath:

@@ -99,3 +99,16 @@ spec:
             - name: wireguard
               containerPort: 51820
               protocol: UDP
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100M 
+            limits:
+              memory: 100M
+          volumeMounts:
+            - name: certs
+              mountPath: /data
+      volumes:
+        - name: certs
+          persistentVolumeClaim:
+            claimName: traefik

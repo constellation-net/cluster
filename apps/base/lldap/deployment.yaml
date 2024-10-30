@@ -12,22 +12,12 @@ spec:
         app: lldap
     spec:
       containers:
-      - name: lldap
-        image: lldap/lldap:latest
-        envFrom:
-          - secretRef:
-              name: lldap-config
-        ports:
-          - name: web
-            containerPort: 17170
-            protocol: TCP
-          - name: ldap
-            containerPort: 3890
-            protocol: TCP
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
-          limits:
-            cpu: 500m
-            memory: 500Mi
+        - name: lldap
+          image: lldap/lldap:latest
+          ports:
+            - name: web
+              containerPort: 17170
+              protocol: TCP
+            - name: ldap
+              containerPort: 3890
+              protocol: TCP
