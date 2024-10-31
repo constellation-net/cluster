@@ -12,7 +12,7 @@ spec:
     - name: nfs-provisioner
     - name: postgres-gitea
   interval: 10m0s
-  timeout: 1m0s
+  timeout: 2m0s
   targetNamespace: labs
   sourceRef:
     kind: GitRepository

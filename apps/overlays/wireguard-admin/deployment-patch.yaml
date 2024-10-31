@@ -17,7 +17,7 @@ spec:
               cpu: 100m
               memory: 100M
             limits:
-              memory: 200M
+              memory: 100M
           env:
             - name: SERVERPORT
               value: "51820"
@@ -40,7 +40,6 @@ spec:
         - name: peers
           persistentVolumeClaim:
             claimName: wireguard
-            readOnly: false
         # Needed to properly load iptables
         - name: kernel
           hostPath:

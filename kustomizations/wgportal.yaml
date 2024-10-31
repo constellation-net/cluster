@@ -12,7 +12,7 @@ spec:
     - name: nfs-provisioner
     - name: postgres-wgportal
   interval: 10m0s
-  timeout: 1m0s
+  timeout: 2m0s
   targetNamespace: network-system
   sourceRef:
     kind: GitRepository

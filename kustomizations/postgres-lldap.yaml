@@ -9,7 +9,7 @@ spec:
     - name: sealed-secrets
     - name: local-provisioner
   interval: 10m0s
-  timeout: 1m0s
+  timeout: 2m0s
   targetNamespace: database-system
   sourceRef:
     kind: GitRepository
