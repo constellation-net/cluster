@@ -16,7 +16,7 @@ spec:
           image: ghcr.io/shefcompsoc/kevin:latest
           envFrom:
             - secretRef:
-                secretName: compsoc-kevin
+                name: compsoc-kevin
           resources:
             requests:
               cpu: 10m
