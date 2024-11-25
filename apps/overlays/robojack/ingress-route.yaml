@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: robojack-api
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`robojack.starsystem.dev`)
+      kind: Rule
+      services:
+        - name: robojack
+          port: 8080
