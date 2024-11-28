@@ -4,7 +4,7 @@ metadata:
   name: tenants
   namespace: flux-system
 spec:
-  depends_on:
+  dependsOn:
     - ddns
     - kube-vip
     - local-provisioner
