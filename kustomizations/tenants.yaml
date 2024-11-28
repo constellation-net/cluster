@@ -5,15 +5,15 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - ddns
-    - kube-vip
-    - local-provisioner
-    - nfs-provisioner
-    - minecraft-router
-    - priority-classes
-    - sealed-secrets
-    - traefik
-    - wireguard
+    - name: ddns
+    - name: kube-vip
+    - name: local-provisioner
+    - name: nfs-provisioner
+    - name: minecraft-router
+    - name: priority-classes
+    - name: sealed-secrets
+    - name: traefik
+    - name: wireguard
   interval: 10m0s
   timeout: 5m0s
   sourceRef:
