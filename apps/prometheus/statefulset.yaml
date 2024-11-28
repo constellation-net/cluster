@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: prometheus
+spec:
+  serviceName: prometheus-headless
+  replicas: 2
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: prometheus
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        starsystem.dev/prometheus: "true"
+      priorityClassName: system-cluster-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: prometheus
+          image: prom/prometheus:latest
+          ports:
+            - name: prometheus
+              containerPort: 9090
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 10m
+              memory: 250Mi
+            limits:
+              memory: 250Mi
+          volumeMounts:
+            - name: data
+              mountPath: /prometheus
+            - name: config
+              mountPath: /etc/prometheus
+      volumes:
+        - name: config
+          configMap:
+            name: prometheus-config
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Delete
+    whenScaled: Delete
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 120Gi
+        storageClassName: local

@@ -4,15 +4,13 @@ metadata:
   name: kube-vip
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: namespaces
   interval: 10m0s
   timeout: 2m0s
-  targetNamespace: network-system
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/overlays/kube-vip
+  path: ./apps/kube-vip
   prune: true
   force: true
   wait: true

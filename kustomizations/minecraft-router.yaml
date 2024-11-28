@@ -5,15 +5,14 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: namespaces
     - name: crds
   interval: 10m0s
   timeout: 2m0s
-  targetNamespace: games
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/overlays/minecraft-router
+  path: ./apps/minecraft-router
   prune: true
   force: true
   wait: true

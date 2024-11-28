@@ -4,15 +4,13 @@ metadata:
   name: local-provisioner
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: namespaces
   interval: 10m0s
   timeout: 2m0s
-  targetNamespace: storage-system
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/overlays/local-provisioner
+  path: ./apps/local-provisioner
   prune: true
   force: true
   wait: true

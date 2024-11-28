@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ddns
+spec:
+  selector:
+    matchLabels:
+      app: ddns
+  template:
+    metadata:
+      labels:
+        app: ddns
+    spec:
+      priorityClassName: system-cluster-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: ddns
+          image: timothyjmiller/cloudflare-ddns:latest
+          env:
+            - name: CONFIG_PATH
+              value: /etc/ddns/
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50M
+            limits:
+              memory: 50M
+          volumeMounts:
+            - name: config
+              mountPath: /etc/ddns
+      volumes:
+        - name: config
+          secret:
+            secretName: ddns-config

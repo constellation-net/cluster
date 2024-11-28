@@ -5,16 +5,15 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: namespaces
     - name: sealed-secrets
     - name: local-provisioner
   interval: 10m0s
   timeout: 2m0s
-  targetNamespace: database-system
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/overlays/prometheus
+  path: ./apps/prometheus
   prune: true
   force: true
   wait: true

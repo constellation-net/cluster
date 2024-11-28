@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tenant-network-policy
+  namespace: tenant-jack
+spec:
+  podSelector: {} # Applies to all pods in namespace
+  # Ingress remains unaffected
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        # Allows egress to all pods in the same namespace, but that is all
+        - namespaceSelector:
+            matchExpressions:
+              - key: namespace
+                operator: In
+                values: ["tenant-jack"]

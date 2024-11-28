@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-server
+spec:
+  selector:
+    matchLabels:
+      app: nfs-server
+  template:
+    metadata:
+      labels:
+        app: nfs-server
+    spec:
+      nodeSelector:
+        starsystem.dev/nfs: "true"
+      tolerations:
+        - operator: Exists
+      priorityClassName: system-cluster-critical
+      containers:
+        - name: nfs-server
+          image: itsthenetwork/nfs-server-alpine:latest-arm
+          securityContext:
+            privileged: true
+          ports:
+            - name: nfsv4
+              containerPort: 2049
+          env:
+            # Waits for changes to be commited before replying to requests
+            # Not as fast as async mode, but avoids data corruption due to a sudden crash
+            - name: SYNC
+              value: "true"
+            - name: SHARED_DIRECTORY
+              value: /export
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100M
+            limits:
+              memory: 100M
+          volumeMounts:
+            - name: data
+              mountPath: /export
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nfs-server

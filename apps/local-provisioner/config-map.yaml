@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: local-provisioner-config
+data:
+  config.json: |-
+    {
+      "storageClassConfigs": {
+        "local": {
+          "nodePathMap": [
+            {
+              "node": "luna",
+              "paths": [
+                "/mnt/cluster"
+              ]
+            },
+            {
+              "node": "sol",
+              "paths": [
+                "/mnt/cluster"
+              ]
+            },
+            {
+              "node": "clover",
+              "paths": [
+                "/games"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  helperPod.yaml: |-
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: local-provisioner-helper
+      namespace: kube-system
+    spec:
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: helper
+          image: rancher/mirrored-library-busybox:1.36.1
+  setup: |-
+    #!/bin/sh
+    set -eu
+    mkdir -m 0777 -p "${VOL_DIR}"
+    chmod 700 "${VOL_DIR}/.."
+  teardown: |-
+    #!/bin/sh
+    set -eu
+    rm -rf "${VOL_DIR}"

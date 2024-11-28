@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wireguard
+spec:
+  selector:
+    matchLabels:
+      app: wireguard
+  template:
+    metadata:
+      labels:
+        app: wireguard
+    spec:
+      priorityClassName: system-cluster-critical
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: wireguard
+          image: lscr.io/linuxserver/wireguard:latest
+          ports:
+            - name: wireguard
+              containerPort: 51820
+          securityContext:
+            capabilities:
+              add:
+                - SYS_MODULE
+                - NET_ADMIN
+            sysctls:
+              - name: net.ipv4.ip_forward
+                value: "1"
+              - name: net.ipv4.conf.all.forwarding
+                value: "1"
+              - name: net.ipv4.conf.all.src_valid_mark
+                value: "1"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100M
+            limits:
+              memory: 100M
+          env:
+            - name: SERVERPORT
+              value: "51820"
+            - name: LOG_CONFS
+              value: "true"
+            - name: PEERS
+              value: "1"
+            - name: PERSISTENTKEEPALIVE_PEERS
+              value: "25"
+            - name: TZ
+              value: Europe/London
+            - name: ALLOWEDIPS
+              value: 0.0.0.0/0,::/0,192.168.1.0/32
+          volumeMounts:
+            - name: kernel
+              mountPath: /lib/modules
+            - name: peers
+              mountPath: /etc/wireguard
+      volumes:
+        - name: peers
+          persistentVolumeClaim:
+            claimName: wireguard
+        # Needed to properly load iptables
+        - name: kernel
+          hostPath:
+            path: /lib/modules
+            type: Directory

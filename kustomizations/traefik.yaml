@@ -5,17 +5,16 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: namespaces
     - name: crds
     - name: sealed-secrets
     - name: nfs-provisioner
   interval: 10m0s
   timeout: 2m0s
-  targetNamespace: network-system
+  targetNamespace: kube-system
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/overlays/traefik
+  path: ./apps/traefik
   prune: true
   force: true
   wait: true

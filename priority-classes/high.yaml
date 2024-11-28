@@ -1,0 +1,8 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high
+description: Maximum priority that tenant pods are allowed to have. It allows preempting other pods. You must request special access to this Priority Class if you wish to use it.
+value: 1000000000
+globalDefault: false
+preemptionPolicy: PreemptLowerPriority

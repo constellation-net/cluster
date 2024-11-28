@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-vip
+spec:
+  selector:
+    matchLabels:
+      app: kube-vip
+  template:
+    metadata:
+      labels:
+        app: kube-vip
+    spec:
+      hostNetwork: true # Liveness probes seem to fail without this
+      dnsPolicy: ClusterFirstWithHostNet
+      serviceAccountName: kube-vip
+      priorityClassName: system-cluster-critical
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: "true"
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: kubevip
+          image: ghcr.io/kube-vip/kube-vip:v0.4.0
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+                - SYS_TIME
+          args:
+            - manager
+          env:
+            # Virtual IP broadcasting via ARP
+            - name: address
+              value: "192.168.1.119"
+            - name: vip_ddns
+              value: "false"
+            - name: vip_arp
+              value: "true"
+            - name: vip_interface
+              value: eth0
+            # Leader election for Virtual IP broadcasting
+            - name: vip_leaderelection
+              value: "true"
+            - name: vip_leaseduration
+              value: "5"
+            - name: vip_renewdeadline
+              value: "3"
+            - name: vip_retryperiod
+              value: "1"
+            - name: cp_namespace
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: cp_enable
+              value: "true"
+            - name: enable_node_labeling
+              value: "true"
+            # Service load balancing
+            - name: svc_enable
+              value: "true"
+            - name: svc_election
+              value: "true" # Leader election per service
+            - name: enable_service_security
+              value: "true"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50M 
+            limits:
+              memory: 50M

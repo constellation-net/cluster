@@ -1,0 +1,8 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: medium
+description: The lowest priority of pod possible. It will be the first to be evicted if the cluster runs out of resources, so tenants should only use this class for their least significant pods.
+value: 10
+globalDefault: false
+preemptionPolicy: Never

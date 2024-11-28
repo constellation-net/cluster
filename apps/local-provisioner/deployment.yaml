@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-provisioner
+spec:
+  selector:
+    matchLabels:
+      app: local-provisioner
+  template:
+    metadata:
+      labels:
+        app: local-provisioner
+    spec:
+      priorityClassName: system-cluster-critical
+      serviceAccountName: local-provisioner
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: path-provisioner
+          image: rancher/local-path-provisioner:v0.0.29
+          command:
+            - local-path-provisioner
+            - --debug
+            - start
+            - --config
+            - /etc/config/config.json
+            - --service-account-name
+            - local-provisioner
+            - --helper-pod-file
+            - /etc/config/helperPod.yaml
+            - --helper-image
+            - busybox:latest
+            - --provisioner-name
+            - provisioner.starsystem.dev/local
+            - --configmap-name
+            - local-provisioner
+          env:
+            - name: CONFIG_MOUNT_PATH
+              value: /etc/config
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50M 
+            limits:
+              memory: 50M
+          volumeMounts:
+            - name: config
+              mountPath: /etc/config
+      volumes:
+        - name: config
+          configMap:
+            name: local-provisioner-config

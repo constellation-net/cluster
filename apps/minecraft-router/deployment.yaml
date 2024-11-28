@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-router
+spec:
+  selector:
+    matchLabels:
+      app: minecraft-router
+  template:
+    metadata:
+      labels:
+        app: minecraft-router
+    spec:
+      tolerations:
+        - operator: Exists
+      serviceAccountName: minecraft-router
+      containers:
+        - name: mc-router
+          image: itzg/mc-router:latest
+          ports:
+            - name: minecraft
+              containerPort: 25565
+          # See here for options: https://github.com/itzg/mc-router
+          args:
+            - --in-kube-cluster # Enables kubernetes service discovery
+            - --metrics-backend=discard # One of discard, expvar or influxdb
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50M
+            limits:
+              memory: 50M
