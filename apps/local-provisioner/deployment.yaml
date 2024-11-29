@@ -33,7 +33,7 @@ spec:
             - --provisioner-name
             - provisioner.starsystem.dev/local
             - --configmap-name
-            - local-provisioner
+            - local-provisioner-config
           env:
             - name: CONFIG_MOUNT_PATH
               value: /etc/config
