@@ -8,7 +8,6 @@ spec:
     requests.cpu: "2"
     requests.memory: 5Gi
     requests.ephemeral-storage: 1Gi
-    limits.cpu: "2"
     limits.memory: 5Gi
     limits.ephemeral-storage: 5Gi
     local.storageclass.storage.k8s.io/requests.storage: 5Gi
