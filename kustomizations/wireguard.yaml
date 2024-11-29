@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: local-provisioner
+    - name: nfs-provisioner
   interval: 10m0s
   timeout: 2m0s
   targetNamespace: kube-system
