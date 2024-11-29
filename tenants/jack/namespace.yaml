@@ -5,11 +5,11 @@ metadata:
   annotations:
     scheduler.alpha.kubernetes.io/tolerationsWhitelist: |
       [{"effect":"PreferNoSchedule"}]
-  labels:
-    starsystem.dev/tenant: "true"
     starsystem.dev/tenant-name: Jack Gledhill
     starsystem.dev/tenant-email: me@jackgledhill.com
     starsystem.dev/tenant-phone: +44 7452 980847
+  labels:
+    starsystem.dev/tenant: "true"
     # Prevent privilege escalation
     pod-security.kubernetes.io/enforce: baseline
     pod-security.kubernetes.io/enforce-version: latest
