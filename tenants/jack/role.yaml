@@ -64,13 +64,13 @@ rules:
   - apiGroups:
       - kustomize.config.k8s.io
     resources:
-      - Kustomization
+      - kustomizations
     verbs:
       - "*"
 
   - apiGroups:
       - kustomize.toolkit.fluxcd.io
     resources:
-      - Kustomization
+      - kustomizations
     verbs:
       - "*"
