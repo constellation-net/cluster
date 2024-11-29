@@ -9,7 +9,7 @@ volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 parameters:
-  server: nfs-server.storage-system
+  server: nfs-server.kube-system
   share: /
   subDir: ${pvc.metadata.name}
   mountPermissions: "0"
