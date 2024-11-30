@@ -10,4 +10,4 @@ spec:
     matchExpressions:
       - scopeName: PriorityClass
         operator : In
-        values: ["system-cluster-critical", "system-node-critical"]
+        values: ["system-cluster-critical", "system-node-critical", "high"]
