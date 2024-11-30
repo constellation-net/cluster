@@ -2,7 +2,6 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: tenant-repository
-  namespace: tenant-jack
 spec:
   interval: 1m0s
   url: https://github.com/constellation-net/tenant-jack
@@ -13,7 +12,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: tenant-kustomization
-  namespace: tenant-jack
 spec:
   interval: 10m0s
   timeout: 5m0s
