@@ -4,7 +4,7 @@ metadata:
   name: tenant-repository
 spec:
   interval: 1m0s
-  url: https://github.com/constellation-net/tenant-TENANT NAME
+  url: https://github.com/constellation-net/tenant-compsoc
   ref:
     branch: main
 ---
@@ -20,5 +20,5 @@ spec:
     name: tenant-repository
   path: "./kustomizations"
   prune: true
-  targetNamespace: tenant-TENANT NAME
+  targetNamespace: tenant-compsoc
   serviceAccountName: tenant-service-account # Prevents tenants creating resources they shouldn't be able to
