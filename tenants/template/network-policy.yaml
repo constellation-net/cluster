@@ -15,4 +15,4 @@ spec:
               - key: namespace
                 operator: In
                 values: 
-                  - tenant-jack
+                  - tenant-TENANT NAME

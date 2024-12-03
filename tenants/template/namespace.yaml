@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: tenant-compsoc
+  name: tenant-TENANT NAME
   annotations:
     scheduler.alpha.kubernetes.io/tolerationsWhitelist: |
       [{"effect":"PreferNoSchedule"}]
-    starsystem.dev/tenant-name: Sheffield CompSoc
-    starsystem.dev/tenant-email: compsci.soc@sheffield.ac.uk
-    starsystem.dev/tenant-phone: ""
+    starsystem.dev/tenant-name: TENANT NAME
+    starsystem.dev/tenant-email: TENANT EMAIL
+    starsystem.dev/tenant-phone: TENANT PHONE
   labels:
     starsystem.dev/tenant: "true"
     # Prevent privilege escalation
