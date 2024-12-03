@@ -16,3 +16,4 @@ spec:
                 operator: In
                 values: 
                   - tenant-compsoc
+                  - kube-system
