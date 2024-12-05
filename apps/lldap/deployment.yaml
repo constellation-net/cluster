@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lldap
+spec:
+  selector:
+    matchLabels:
+      app: lldap
+  template:
+    metadata:
+      labels:
+        app: lldap
+    spec:
+      containers:
+        - name: lldap
+          image: lldap/lldap:latest
+          ports:
+            - name: web
+              containerPort: 17170
+              protocol: TCP
+            - name: ldap
+              containerPort: 3890
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: lldap-config
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
+        - name: database
+          image: postgres:17
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: lldap-database
+          resources:
+            requests:
+              cpu: 10m
+              memory: 500Mi
+            limits:
+              memory: 500Mi
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: lldap-database
