@@ -44,7 +44,7 @@ spec:
             - --entrypoints.websecure.forwardedheaders.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
             - --entrypoints.websecure.proxyprotocol.insecure=false
             - --entrypoints.websecure.proxyprotocol.trustedips=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7
-            - --entrypoints.websecure.http.middlewares=network-system-traefik-cors # Automatically responds to CORS requests for proxied services
+            - --entrypoints.websecure.http.middlewares=kube-system-traefik-cors # Automatically responds to CORS requests for proxied services
             - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1,1.0.0.1 # Cloudflare's own DNS servers
             - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
             - --certificatesresolvers.letsencrypt.acme.email=admin@starsystem.dev
