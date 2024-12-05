@@ -4,3 +4,4 @@ resources:
   - ./jack/
   #- ./constellation/
   - ./compsoc/
+  - ./compsci-2024/

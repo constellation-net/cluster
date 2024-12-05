@@ -1,0 +1,24 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: tenant-repository
+spec:
+  interval: 1m0s
+  url: https://github.com/shefcs2024/constellation
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tenant-kustomization
+spec:
+  interval: 10m0s
+  timeout: 5m0s
+  sourceRef:
+    kind: GitRepository
+    name: tenant-repository
+  path: "./kustomizations"
+  prune: true
+  targetNamespace: tenant-compsci-2024
+  serviceAccountName: tenant-service-account # Prevents tenants creating resources they shouldn't be able to

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tenant-quota
+spec:
+  hard:
+    # Requests
+    requests.cpu: "4"
+    requests.memory: 16G
+    requests.ephemeral-storage: 5G
+    local.storageclass.storage.k8s.io/requests.storage: 128G
+    nfs.storageclass.storage.k8s.io/requests.storage: 5G
+    # Limits
+    limits.memory: 16G
+    limits.ephemeral-storage: 5G
+    local.storageclass.storage.k8s.io/limits.storage: 128G
+    nfs.storageclass.storage.k8s.io/limits.storage: 5G

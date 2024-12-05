@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-compsci-2024
+  annotations:
+    scheduler.alpha.kubernetes.io/tolerationsWhitelist: |
+      [{"effect":"PreferNoSchedule"}]
+    starsystem.dev/tenant-name: Sheffield CompSci 2024
+    starsystem.dev/tenant-email: ""
+    starsystem.dev/tenant-phone: ""
+  labels:
+    starsystem.dev/tenant: "true"
+    # Prevent privilege escalation
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce-version: latest
+    # Warn pods that use an outdated restricted policy
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/warn-version: latest
+    # Audit pods using anything other than the latest version of the restricted policy
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/audit-version: latest
