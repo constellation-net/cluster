@@ -8,5 +8,5 @@ spec:
   routes:
     - match: HostSNI(`*`)
       services:
-        - name: minecraft
+        - name: minecraft-router
           port: 25565
