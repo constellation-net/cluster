@@ -11,6 +11,11 @@ spec:
       labels:
         app: lldap
     spec:
+      priorityClassName: system-cluster-critical
+      tolerations:
+        - operator: Exists
+      nodeSelector:
+        starsystem.dev/database: "true"
       containers:
         - name: lldap
           image: lldap/lldap:latest
