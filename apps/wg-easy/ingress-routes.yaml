@@ -20,7 +20,6 @@ spec:
   entryPoints:
     - wireguard
   routes:
-    - match: HostSNI(`*`)
-      services:
+    - services:
         - name: wg-easy
           port: 51820
